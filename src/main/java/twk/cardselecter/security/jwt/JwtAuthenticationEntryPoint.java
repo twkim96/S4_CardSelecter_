@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * AuthenticationEntryPoint를 구현하여 인증에 실패한 사용자의 response에 메시지를 담아준다.
+ */
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

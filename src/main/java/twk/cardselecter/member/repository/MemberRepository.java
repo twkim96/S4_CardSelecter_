@@ -3,6 +3,7 @@ package twk.cardselecter.member.repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import twk.cardselecter.member.dto.request.JoinRequest;
+import twk.cardselecter.member.dto.response.JoinResponse;
 import twk.cardselecter.member.entity.Member;
 
 @Mapper

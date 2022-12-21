@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,7 +35,7 @@ public class WebSecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/bbs", "comment").authenticated()
+                .requestMatchers(HttpMethod.POST, "/bbs", "/comment").authenticated()
                 .requestMatchers(HttpMethod.PATCH, "/bbs", "/comment").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/bbs", "/comment").authenticated()
                 .anyRequest().permitAll();
@@ -61,4 +64,15 @@ public class WebSecurityConfig {
         return source;
     }
 
+    /* 패스워드 암호화 */
+    @Bean
+    public BCryptPasswordEncoder encodePassword() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 }

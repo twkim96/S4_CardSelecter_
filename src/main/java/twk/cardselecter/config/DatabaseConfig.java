@@ -13,7 +13,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 

@@ -2,7 +2,6 @@ package twk.cardselecter.member;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +15,7 @@ import java.util.Date;
 @RequestMapping("/user")
 public class MemberController {
 
-    private final MemberService memberService;
+
 
     /* 요청 DTO 검증 예외처리 핸들러 */
     @ExceptionHandler(MethodArgumentNotValidException.class)

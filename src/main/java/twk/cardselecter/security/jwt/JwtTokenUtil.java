@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+/**
+ *  token을 발급하고 token에서 userName을 추출한 후 유효성 처리 검사를 한다.
+ */
 @Component
 public class JwtTokenUtil implements Serializable {
 
