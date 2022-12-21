@@ -9,11 +9,11 @@ function ReductTestl() {
     const doLogin = async () => {
         const resp = await axios.get('/test')
         console.log(resp)
-        // dispatch(login({id: resp.data.id, pwd: resp.data.pwd, name: resp.data.name}))
+        dispatch(login({id: resp.data.id, pwd: resp.data.pwd, name: resp.data.name}))
         localStorage.setItem("id", resp.data.id)
         localStorage.setItem("pwd", resp.data.pwd)
         localStorage.setItem("name", resp.data.name)
-        dispatch(login())
+        // dispatch(login())
     }
     const doLogout = () => {
         console.log(user.id + " 1 " + localStorage.getItem("id"))
@@ -27,7 +27,7 @@ function ReductTestl() {
     }
 
     useEffect(() => {
-
+        console.log(user.id)
     })
     return (
         <div>
