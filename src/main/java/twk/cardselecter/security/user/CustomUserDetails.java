@@ -8,6 +8,9 @@ import twk.cardselecter.member.entity.Member;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * https://cuna.tistory.com/195?category=1035631 관련 설명
+ */
 @Getter
 public class CustomUserDetails implements UserDetails {
 

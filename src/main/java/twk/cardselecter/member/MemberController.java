@@ -1,10 +1,12 @@
 package twk.cardselecter.member;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import twk.cardselecter.member.exception.MemberException;
@@ -13,9 +15,13 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
+@AllArgsConstructor
 public class MemberController {
 
+    private final MemberService service;
 
+    @GetMapping
+    public
 
     /* 요청 DTO 검증 예외처리 핸들러 */
     @ExceptionHandler(MethodArgumentNotValidException.class)

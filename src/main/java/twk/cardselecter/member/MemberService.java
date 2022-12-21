@@ -6,16 +6,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.member.dto.request.JoinRequest;
+import twk.cardselecter.member.dto.request.LoginRequest;
 import twk.cardselecter.member.dto.response.JoinResponse;
+import twk.cardselecter.member.dto.response.LoginResponse;
 import twk.cardselecter.member.exception.MemberException;
 import twk.cardselecter.member.repository.MemberRepository;
 import twk.cardselecter.security.jwt.JwtTokenUtil;
 
+/**
+ *
+ */
 @Service
 @Transactional
 @AllArgsConstructor
@@ -26,33 +32,49 @@ public class MemberService {
     private final UserDetailsService userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
 
-    /**
-     * @param id 조회하고자 하는 id
-     * @return id가 이미 존재하면, 사용중인 아이디 메시지 출력
-     */
     public HttpStatus checkIdDuplicate(String id) {
-        isExistUserId(id); //가독성을 위해 함수를 따로 빼둠
+        isExistUserId(id);
         return HttpStatus.OK;
     }
+
     @Transactional
     public JoinResponse join(JoinRequest req){
         isExistUserId(req.getId());
         saveMember(req);
-        authenticate(req);
+        authenticate(req.getId(), req.getPwd());
         return new JoinResponse(req.getId());
     }
 
-    private void authenticate(JoinRequest req) {
+    public LoginResponse login(LoginRequest req){
+        authenticate(req.getId(), req.getPwd());
+        return new LoginResponse(getJwtToken(req), req.getId());
+    }
+
+    /**
+     * jwtToken 을 생성하는 메소드, loadUserByUsername 은 사용자 이름을 기준으로 DB의 사용자 정보를 찾는다.
+     */
+    private String getJwtToken(LoginRequest req) {
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(req.getId());
+        return jwtTokenUtil.generateToken(userDetails);
+    }
+
+    /**
+     * 저장한 멤버를 인증(UsernamePasswordAuthenticationToken)
+     */
+    private void authenticate(String id, String pwd) {
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getId(), req.getPwd()))
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(id, pwd));
         } catch (DisabledException e){
             throw new MemberException("인증되지 않은 아이디입니다.", HttpStatus.BAD_REQUEST);
         } catch (BadCredentialsException e) {
-            System.out.println(req.getId() + req.getPwd() + "koko");
+            System.out.println(id + pwd + "koko");
             throw new MemberException("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
     }
 
+    /**
+     * repository 를 통해 멤버 저장
+     */
     private void saveMember(JoinRequest req) {
         String encodePwd = encoder.encode(req.getPwd());
         int result = repository.createMember(
@@ -62,6 +84,9 @@ public class MemberService {
             throw new MemberException("회원 등록을 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 아이디 중복 확인
+     */
     private void isExistUserId(String id) {
         Integer result = repository.isExistUserId(id);
         if (result == 1)
