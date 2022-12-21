@@ -8,11 +8,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class JoinRequest {
     @NotBlank
-    private String name;
+    private String id;
     @NotBlank
     private String pwd;
     @NotBlank
-    private String checkPwd;
+    private String name;
     @NotBlank
     private String email;
 }

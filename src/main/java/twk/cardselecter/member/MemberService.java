@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.member.repository.MemberRepository;
+import twk.cardselecter.security.jwt.JwtTokenUtil;
 
 @Service
 @Transactional
@@ -16,5 +17,6 @@ public class MemberService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final JwtTokenUtil jwtTokenUtil;
 
 }
