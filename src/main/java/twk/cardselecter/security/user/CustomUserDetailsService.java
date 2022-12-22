@@ -5,11 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import twk.cardselecter.member.entity.Member;
 import twk.cardselecter.member.repository.MemberRepository;
 
 import java.util.Date;
-
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final Logger logger = LoggerFactory.getLogger(UserDetailsService.class);
