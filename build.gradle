@@ -25,7 +25,7 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0' //mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1' //mybatis
     implementation 'org.springframework.boot:spring-boot-starter-validation' //@NOTBLACK검증
     implementation 'org.springframework.boot:spring-boot-starter-security' //SpringSecurity
     implementation 'org.springframework.security:spring-security-test' //SpringSecurity
@@ -33,6 +33,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java' //mysql
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
     implementation 'io.jsonwebtoken:jjwt:0.9.1' //jwt
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'//jwt java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter 에러
 }
 
 tasks.named('test') {

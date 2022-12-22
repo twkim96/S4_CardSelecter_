@@ -1,0 +1,157 @@
+/*header*/
+#h-container {
+    margin: 30px auto 20px auto;
+    width: 1130px;
+    border-bottom: black 1px solid;
+}
+
+#h-container .header {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    height: 70px;
+
+}
+
+#h-container .header > div:first-child{
+    margin-top: 20px;
+    height: 50px;
+}
+
+#h-container .header > div:nth-child(2){
+    margin-top: 20px;
+    height: 50px;
+}
+
+.login-box{
+    display: flex;
+    margin-top: 10px;
+}
+.login-box img{
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+#h-container h1 {
+    margin-right: 30px;
+    font-size: 40px;
+}
+
+#h-container .logo-desc {
+    line-height: 35px;
+}
+
+div.login-menu {
+    position: absolute;
+    display: flex;
+    top: 1px;
+    bottom: 20px;
+    right: 0;
+}
+
+div.login-menu div {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div.login-menu div:nth-child(2) img {
+    margin-left: 7px;
+}
+
+.login-made {
+    z-index: 40;
+    visibility: hidden;
+    position: absolute;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0.2px 1px;
+    border-radius: 4px;	right: 0;
+    width: 230px;
+    line-height: 30px;
+    padding: 20px;
+}
+
+.active{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dflex{
+    display: flex;
+}
+
+/*nav*/
+
+#nav-container {
+    width: 1130px;
+    margin: 0 auto;
+}
+#nav-container .nav {
+    z-index: 30;
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    height: 70px;
+}
+
+#nav-container .nav-main {
+    display: flex;
+}
+
+#nav-container .nav-main > li {
+    margin: 15px 5px 20px 15px;
+}
+
+.nav-main h1 {
+    width: 140px;
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nav-main h2 {
+    width: 70px;
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nav-main .nav-show {
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s ease-in-out;
+    transform: translateY(-20px);
+    width: 140px;
+    background-color: white;
+    box-shadow: 0.2px 0.2px;
+    border-radius: 4px;
+}
+
+.nav-main > li:hover .nav-show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    font-size: larger;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.nav-main .nav-show li {
+    padding: 5px 0 5px 0;
+    line-height: 25px;
+    text-align: center;
+    margin-bottom: 7px;
+}
+
+.nav-main .nav-show li:hover {
+    background-color: antiquewhite;
+}
+
+.nav-main p {
+    font-size: medium;
+    font-weight: 400;
+}

@@ -35,7 +35,7 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> join(@Valid @RequestBody LoginRequest req){
         LoginResponse response = service.login(req);
-        log.info("login {}", response);
+        log.info("login {}", response.getName());
         return ResponseEntity.ok(response);
     }
     /**

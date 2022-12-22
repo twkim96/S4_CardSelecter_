@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialStateValue = {
     id: localStorage.getItem("id"),
-    pwd: localStorage.getItem("pwd"),
-    name: localStorage.getItem("name")
+    name: localStorage.getItem("name"),
+    jwt: `"Authorization": Bearer ${localStorage.getItem("bbs_access_token")}`
 }
 export const userSlice = createSlice({
     name: "user",

@@ -1,10 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {login} from "../../redux/user";
 
-function login(){
+function Login(){
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [id, setId] = useState("");
     const [pwd, setPwd] = useState("");
@@ -15,17 +18,20 @@ function login(){
         setPwd(e.target.value);
     }
 
-    const login = async () => {
+    const logOn = async () => {
         const req = {
             id: id,
             pwd: pwd
         }
-        const resp = await axios.post("/user/login", req)
+        console.log(id, pwd)
         try {
-            alert(resp.data.id + "님, 성공적으로 로그인 되었습니다.");
+            const resp = await axios.post("http://localhost:8818/user/login", req)
+            console.log(resp)
+            alert(resp.data.name + "님, 성공적으로 로그인 되었습니다.");
             localStorage.setItem("bbs_access_token", resp.data.jwt);
             localStorage.setItem("id", resp.data.id);
-            navigate("/");
+            localStorage.setItem("name", resp.data.name);
+            dispatch(login({id: resp.data.id, name: resp.data.name, jwt: resp.data.jwt}));
         } catch (err){
             console.log(err);
             alert(err.response.data);
@@ -52,7 +58,7 @@ function login(){
             </table><br />
 
             <div className="my-1 d-flex justify-content-center">
-                <button className="btn btn-outline-secondary" onClick={login}><i className="fas fa-sign-in-alt"></i> 로그인</button>
+                <button className="btn btn-outline-secondary" onClick={logOn}><i className="fas fa-sign-in-alt"></i> 로그인</button>
             </div>
 
         </div>

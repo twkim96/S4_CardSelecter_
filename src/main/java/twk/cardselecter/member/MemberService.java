@@ -15,6 +15,7 @@ import twk.cardselecter.member.dto.request.JoinRequest;
 import twk.cardselecter.member.dto.request.LoginRequest;
 import twk.cardselecter.member.dto.response.JoinResponse;
 import twk.cardselecter.member.dto.response.LoginResponse;
+import twk.cardselecter.member.entity.Member;
 import twk.cardselecter.member.exception.MemberException;
 import twk.cardselecter.member.repository.MemberRepository;
 import twk.cardselecter.security.jwt.JwtTokenUtil;
@@ -47,7 +48,8 @@ public class MemberService {
 
     public LoginResponse login(LoginRequest req){
         authenticate(req.getId(), req.getPwd());
-        return new LoginResponse(getJwtToken(req), req.getId());
+        Member m = repository.findById(req.getId());
+        return new LoginResponse(m.getId(), m.getName() ,getJwtToken(req));
     }
 
     /**
@@ -67,7 +69,6 @@ public class MemberService {
         } catch (DisabledException e){
             throw new MemberException("인증되지 않은 아이디입니다.", HttpStatus.BAD_REQUEST);
         } catch (BadCredentialsException e) {
-            System.out.println(id + pwd + "koko");
             throw new MemberException("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
     }

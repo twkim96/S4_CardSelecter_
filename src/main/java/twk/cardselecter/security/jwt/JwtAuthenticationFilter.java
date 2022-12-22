@@ -18,13 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
-
-/**
- * OncePerRequestFilter를 상속받은 클래스로써 요청당 한 번의 filter를 수행하도록 doFilterInternal()메소드가
- * 구현되어있다. 헤더에서 Authorization값을 꺼내어 토큰을 검사하고 해당 유저가 실제 DB에 있는지 검사하는 등의
- * 전반적인 인증 처리를 여기서 진행한다.
- * shouldNotFilter를 사용해서 exclude 시킬 url을 지정할 수 있다.
- */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -59,12 +52,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("JwtAuthenticationFilter: invalid member !");
                 e.printStackTrace();
             }
+        } else if(header == null){
+            System.out.println("헤더가 없어용");
         } else {
             System.out.println("JwtAuthenticationFilter: request that do not require authorization.");
         }
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
