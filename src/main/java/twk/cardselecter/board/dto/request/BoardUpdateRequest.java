@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BoardUpdateRequest {
-    @NotBlank
+    @NotBlank(message = "로그인 상태를 확인해 주세요.")
     private String id;
-    @NotBlank
+    @NotBlank(message = "제목을 입력 해주세요.")
     private String title;
-    @NotBlank
+    @NotBlank(message = "내용을 입력 해주세요.")
     private String content;
 }
