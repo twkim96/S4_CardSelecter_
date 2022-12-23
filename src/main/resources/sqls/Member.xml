@@ -19,7 +19,7 @@ SELECT id, name, pwd, email
 	WHERE id=#{id}
 </select>
 
-<insert id="createMember" parameterType="twk.cardselecter.member.dto.request.JoinRequest">
+<insert id="createMember" parameterType="twk.cardselecter.member.entity.Member">
 	INSERT INTO member(id, pwd, name, email)
 	VALUES(#{id}, #{pwd}, #{name}, #{email})
 </insert>

@@ -21,7 +21,7 @@ import twk.cardselecter.member.repository.MemberRepository;
 import twk.cardselecter.security.jwt.JwtTokenUtil;
 
 /**
- *
+ *  Member entity 를 controller service 중 어디에서 변환해야 하는지에 대한 의문.
  */
 @Service
 @Transactional
@@ -48,8 +48,9 @@ public class MemberService {
 
     public LoginResponse login(LoginRequest req){
         authenticate(req.getId(), req.getPwd());
-        Member m = repository.findById(req.getId());
-        return new LoginResponse(m.getId(), m.getName() ,getJwtToken(req));
+        Member member = repository.findById(req.getId());
+        System.out.println(member);
+        return new LoginResponse(member.getId(), member.getName() ,getJwtToken(req));
     }
 
     /**
@@ -78,9 +79,10 @@ public class MemberService {
      */
     private void saveMember(JoinRequest req) {
         String encodePwd = encoder.encode(req.getPwd());
-        int result = repository.createMember(
-                new JoinRequest(req.getId(), encodePwd, req.getName(), req.getEmail())
-        );
+        Member member = Member.builder()
+                .id(req.getId()).pwd(encodePwd).email(req.getEmail()).name(req.getName())
+                .build();
+        int result = repository.createMember(member);
         if(result == 0)
             throw new MemberException("회원 등록을 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
     }

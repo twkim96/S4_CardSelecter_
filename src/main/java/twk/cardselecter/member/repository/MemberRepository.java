@@ -12,6 +12,6 @@ public interface MemberRepository {
 
     Member findById(String id);
     Integer isExistUserId(String id);
-    Integer createMember(JoinRequest joinRequest);
+    Integer createMember(Member member);
 
 }

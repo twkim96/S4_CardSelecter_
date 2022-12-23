@@ -1,5 +1,6 @@
 package twk.cardselecter.member.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,4 +13,5 @@ public class Member {
     private String pwd;
     private String name;
     private String email;
+
 }
