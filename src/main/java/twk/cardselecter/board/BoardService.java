@@ -1,5 +1,6 @@
 package twk.cardselecter.board;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.param.BoardAnswer;
@@ -13,6 +14,7 @@ import twk.cardselecter.board.dto.response.*;
 import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
+import twk.cardselecter.board.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
 
 import java.util.List;
@@ -42,11 +44,17 @@ public class BoardService {
      */
     public BoardPostResponse getBoard(Integer seq, String id){
         if(!id.isEmpty()){
-            Integer result = boardRepository.createBoardHistory(new BoardHistory(seq, id));
-            if (result >= 1) {
+            System.out.println("check1");
+            try {
+                Integer result = boardRepository.createBoardHistory(new BoardHistory(seq, id));
+                System.out.println("check2: "+result);
                 Integer updateResult = boardRepository.updateBoardHistory(seq);
+                System.out.println("check3: "+updateResult);
+            } catch (DupKeyException e){
+                //throw new DupKeyException("하루에 한 번만 조회수가 추가됩니다.", HttpStatus.CONFLICT);
             }
         }
+        System.out.println("check4: ");
         /*updateResult 사용해서 예외처리*/
         return new BoardPostResponse(boardRepository.getBoard(seq));
     }
@@ -67,21 +75,14 @@ public class BoardService {
      */
     public BoardCreateResponse createBoardAnswer(Integer parentSeq, BoardCreateRequest req){
         Board board = req.toEntity();
-        System.out.println("check0"+board);
         Integer checkResult = boardRepository.updateBoardCheck(parentSeq);
-        System.out.println("check1"+checkResult);
         BoardAnswer boardAnswer = new BoardAnswer(board, checkResult, parentSeq);
-        System.out.println("check2"+boardAnswer);
         BoardStep boardStep = new BoardStep(parentSeq, checkResult);
-        System.out.println("check3"+boardStep);
         if (checkResult == 0) {
             Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
-            System.out.println("check4"+answerResult);
         } else {
             Integer updateStepResult = boardRepository.updateBoardStep(boardStep);
-            System.out.println("check5"+updateStepResult);
             Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
-            System.out.println("check6"+answerResult);
         }
         return new BoardCreateResponse(board.getSeq());
     }

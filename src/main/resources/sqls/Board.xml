@@ -80,16 +80,16 @@
 	<select id="updateBoardCheck" parameterType="Integer" resultType="Integer">
 		select ifnull(min(step), 0)
 		from board
-		where ref = (select ref from board where seq = #{parentSeq})
-	  	and step > (select step from board where seq = #{parentSeq})
-		and (select depth from board where seq = ${parentSeq}) >= depth
+		where ref = (select ref from board a where seq = #{parentSeq})
+	  	and step > (select step from board b where seq = #{parentSeq})
+		and (select depth from board c where seq = ${parentSeq}) >= depth
 	</select>
 
 	<!-- 부모 게시글 step 업데이트 -->
 	<update id="updateBoardStep" parameterType="twk.cardselecter.board.dto.param.BoardStep">
 		update board
 		set step = step + 1
-		where ref = (select ref from board where seq = #{parentSeq})
+		where ref = (select ref from (select ref from board a where seq=#{parentSeq}) A)
 		and step >= #{checkResult};
 	</update>
 
@@ -97,20 +97,18 @@
 	<insert id="createBoardAnswer" parameterType="twk.cardselecter.board.dto.param.BoardAnswer"
 					useGeneratedKeys="true" keyProperty="seq">
 		INSERT board (id, ref, step, depth, title, content, created_at, del, read_count, b_like)
-		<choose>
-			<when test="checkResult == 0">
+			<if test="checkResult == 0">
 				values (#{id}, (SELECT ref FROM board a WHERE seq=#{parentSeq}),
 				       (select ifnull(max(step), 0) + 1 from board b where ref=(select ref FROM board c WHERE seq=#{parentSeq})),
 						(SELECT depth FROM board d WHERE seq=#{parentSeq}) + 1,
 						#{title}, #{content}, NOW(), 0, 0, 0);
-			</when>
-			<otherwise>
-				VALUES (#{id}, (SELECT ref FROM board a WHERE seq=#{parentSeq}),
-				(SELECT step FROM board b WHERE seq=#{parentSeq}) + 1,
-				(SELECT depth FROM board c WHERE seq=#{parentSeq}) + 1,
+			</if>
+			<if test="checkResult > 0">
+				VALUES (#{id}, (SELECT ref FROM board e WHERE seq=#{parentSeq}),
+				#{checkResult},
+				(SELECT depth FROM board f WHERE seq=#{parentSeq}) + 1,
 				#{title}, #{content}, NOW(), 0, 0, 0);
-			</otherwise>
-	   </choose>
+			</if>
 	</insert>
 
 	<!-- 게시글 수정 -->
