@@ -1,6 +1,5 @@
 package twk.cardselecter.board;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.param.BoardAnswer;
@@ -14,7 +13,7 @@ import twk.cardselecter.board.dto.response.*;
 import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
-import twk.cardselecter.board.exception.DupKeyException;
+import twk.cardselecter.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
 
 import java.util.List;
@@ -77,7 +76,7 @@ public class BoardService {
         Board board = req.toEntity();
         Integer checkResult = boardRepository.updateBoardCheck(parentSeq);
         BoardAnswer boardAnswer = new BoardAnswer(board, checkResult, parentSeq);
-        BoardStep boardStep = new BoardStep(parentSeq, checkResult);
+        BoardStep boardStep = new BoardStep(checkResult, parentSeq);
         if (checkResult == 0) {
             Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
         } else {
@@ -104,7 +103,8 @@ public class BoardService {
      * 글 수정
      */
     public BoardUpdateResponse updateBoard(Integer seq, BoardUpdateRequest req){
-        Board board = req.toEntity();
+        Board board = Board.builder().seq(seq).id(req.getId())
+                .content(req.getContent()).title(req.getTitle()).build();
         Integer updateResult = boardRepository.updateBoard(board);
         return new BoardUpdateResponse(updateResult);
     }

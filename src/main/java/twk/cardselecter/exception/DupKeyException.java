@@ -1,4 +1,4 @@
-package twk.cardselecter.board.exception;
+package twk.cardselecter.exception;
 
 import lombok.Getter;
 import org.springframework.dao.DuplicateKeyException;

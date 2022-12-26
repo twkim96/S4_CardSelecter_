@@ -3,20 +3,13 @@ package twk.cardselecter.board;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.request.BoardCreateRequest;
 import twk.cardselecter.board.dto.request.BoardListRequest;
 import twk.cardselecter.board.dto.response.BoardCreateResponse;
 import twk.cardselecter.board.dto.response.BoardListResponse;
 import twk.cardselecter.board.dto.response.BoardPostResponse;
-import twk.cardselecter.board.entity.Board;
-import twk.cardselecter.board.exception.DupKeyException;
+import twk.cardselecter.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BoardServiceTest {

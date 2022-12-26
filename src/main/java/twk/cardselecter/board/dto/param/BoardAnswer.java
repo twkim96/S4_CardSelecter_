@@ -8,13 +8,13 @@ import twk.cardselecter.board.entity.Board;
 @Getter
 @ToString
 public class BoardAnswer {
-    Board board;
-    Integer seq;
-    String id;
-    String title;
-    String content;
-    Integer checkResult;
-    Integer parentSeq;
+    private Board board;
+    private Integer seq;
+    private String id;
+    private String title;
+    private String content;
+    private Integer checkResult;
+    private Integer parentSeq;
 
     public BoardAnswer(Board board, Integer checkResult, Integer parentSeq) {
         this.board = board;
