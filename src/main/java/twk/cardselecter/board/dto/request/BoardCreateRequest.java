@@ -3,6 +3,7 @@ package twk.cardselecter.board.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import twk.cardselecter.board.entity.Board;
 
 @Getter
 @AllArgsConstructor
@@ -13,4 +14,11 @@ public class BoardCreateRequest {
     private String title;
     @NotBlank(message = "내용을 입력 해주세요.")
     private String content;
+    public Board toEntity(){
+        return Board.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .build();
+    }
 }

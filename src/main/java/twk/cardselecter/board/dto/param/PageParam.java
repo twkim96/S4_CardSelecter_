@@ -1,4 +1,4 @@
-package twk.cardselecter.board.dto.page;
+package twk.cardselecter.board.dto.param;
 
 import lombok.Getter;
 @Getter

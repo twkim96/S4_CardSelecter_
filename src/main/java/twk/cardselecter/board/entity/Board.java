@@ -18,5 +18,5 @@ public class Board {
     private String createAt;
     private int del;
     private int readCount;
-    private int like;
+    private int bLike;
 }
