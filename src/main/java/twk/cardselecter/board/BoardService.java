@@ -1,5 +1,6 @@
 package twk.cardselecter.board;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.param.BoardAnswer;
@@ -20,11 +21,9 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
 
     /**
      * 게시글 조회

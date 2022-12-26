@@ -2,7 +2,6 @@ package twk.cardselecter.board;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import twk.cardselecter.board.dto.request.BoardCreateRequest;
@@ -16,7 +15,7 @@ import twk.cardselecter.board.dto.response.*;
 @Slf4j
 public class BoardController {
 
-    private final BoardService boardService;
+    private final BoardService service;
 
     /**
      * GET | board?choice={choice}&search={search}&page={page}
@@ -24,7 +23,7 @@ public class BoardController {
      */
     @GetMapping
     public ResponseEntity<BoardListResponse> getBoardList(@ModelAttribute BoardListRequest req) {
-        BoardListResponse boardList = boardService.getBoardList(req);
+        BoardListResponse boardList = service.getBoardList(req);
         log.info("getBoardList {}", boardList);
         return ResponseEntity.ok(boardList);
     }
@@ -35,7 +34,7 @@ public class BoardController {
      */
     @GetMapping("/{seq}")
     public ResponseEntity<BoardPostResponse> getBoard(@PathVariable Integer seq, @RequestParam String id) {
-        BoardPostResponse boardInfo = boardService.getBoard(seq, id);
+        BoardPostResponse boardInfo = service.getBoard(seq, id);
         log.info("getBoard {}", boardInfo);
         return ResponseEntity.ok(boardInfo);
     }
@@ -46,7 +45,7 @@ public class BoardController {
      */
     @PostMapping
     public ResponseEntity<BoardCreateResponse> createBoard(@RequestBody BoardCreateRequest req) {
-        BoardCreateResponse boardCreate = boardService.createBoard(req);
+        BoardCreateResponse boardCreate = service.createBoard(req);
         log.info("createBoard {}", boardCreate);
         return ResponseEntity.ok(boardCreate);
     }
@@ -57,7 +56,7 @@ public class BoardController {
      */
     @PostMapping("/{parentSeq}/answer")
     public ResponseEntity<BoardCreateResponse> createBoardAnswer(@PathVariable Integer parentSeq, @RequestParam BoardCreateRequest req){
-        BoardCreateResponse boardAnswerCreate = boardService.createBoardAnswer(parentSeq, req);
+        BoardCreateResponse boardAnswerCreate = service.createBoardAnswer(parentSeq, req);
         log.info("createBoardAnswer {}", boardAnswerCreate);
         return ResponseEntity.ok(boardAnswerCreate);
     }
@@ -68,7 +67,7 @@ public class BoardController {
      */
     @PatchMapping("/{seq}")
     public ResponseEntity<BoardUpdateResponse> updateBoard(@PathVariable Integer seq, @RequestBody BoardUpdateRequest req){
-        BoardUpdateResponse boardUpdate = boardService.updateBoard(seq, req);
+        BoardUpdateResponse boardUpdate = service.updateBoard(seq, req);
         log.info("updateBoard {}", boardUpdate);
         return ResponseEntity.ok(boardUpdate);
     }
@@ -79,7 +78,7 @@ public class BoardController {
      */
     @DeleteMapping("/{seq}")
     public ResponseEntity<BoardDeleteResponse> deleteBoard(@PathVariable Integer seq){
-        BoardDeleteResponse boardDelete = boardService.deleteBoard(seq);
+        BoardDeleteResponse boardDelete = service.deleteBoard(seq);
         log.info("deleteBoard {}", boardDelete);
         return ResponseEntity.ok(boardDelete);
     }

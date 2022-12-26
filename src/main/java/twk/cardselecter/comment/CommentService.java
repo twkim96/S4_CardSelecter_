@@ -81,7 +81,7 @@ public class CommentService {
     /**
      * 댓글 삭제
      */
-    public CommentDeleteResponse deleteResponse(Integer seq){
+    public CommentDeleteResponse deleteComment(Integer seq){
         Integer deleteResult = repository.deleteComment(seq);
         return new CommentDeleteResponse(deleteResult);
     }
