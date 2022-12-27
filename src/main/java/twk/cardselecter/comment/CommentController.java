@@ -33,7 +33,7 @@ public class CommentController {
      * 댓글 작성
      */
     @PostMapping
-    public ResponseEntity<CommentPostResponse> createComment(@RequestParam Integer boardSeq, @RequestBody CommentPostRequest req){
+    public ResponseEntity<CommentPostResponse> createComment(@RequestBody CommentPostRequest req){
         CommentPostResponse commentPost = service.createComment(req);
         log.info("createComment {}", commentPost);
         return ResponseEntity.ok(commentPost);
@@ -52,17 +52,17 @@ public class CommentController {
     /**
      * 댓글 수정
      */
-    @PatchMapping("/{seq}")
+    @PatchMapping
     public ResponseEntity<CommentPostResponse> updateComment(
-            @AuthenticationPrincipal UserDetails userDetails, @PathVariable Integer seq,
+            @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody CommentPostRequest req){
-        CommentPostResponse commentUpdate = service.updateComment(userDetails.getUsername(), seq, req);
+        CommentPostResponse commentUpdate = service.updateComment(userDetails.getUsername(), req);
         log.info("updateComment {}", commentUpdate);
         return ResponseEntity.ok(commentUpdate);
     }
 
     /**
-     * 게시글 삭제
+     * 댓글 삭제
      */
     @DeleteMapping("/{seq}")
     public ResponseEntity<CommentDeleteResponse> deleteComment(@PathVariable Integer seq){

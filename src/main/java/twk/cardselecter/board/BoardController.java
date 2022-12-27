@@ -61,6 +61,12 @@ public class BoardController {
         return ResponseEntity.ok(boardAnswerCreate);
     }
 
+    @PatchMapping("/{seq}/like")
+    public ResponseEntity<BoardLikeResponse> updateLike(@PathVariable Integer seq, @RequestParam String id){
+        BoardLikeResponse boardLikeUpdate = service.updateBoardLike(seq, id);
+        log.info("boardLikeUpdate {}", boardLikeUpdate);
+        return ResponseEntity.ok(boardLikeUpdate);
+    }
     /**
      * PATCH | /board/{seq}
      * 게시글 수정

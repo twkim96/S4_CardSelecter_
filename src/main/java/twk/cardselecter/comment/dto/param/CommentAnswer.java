@@ -13,6 +13,8 @@ public class CommentAnswer {
     private final String content;
     private final Integer checkResult;
     private final Integer parentSeq;
+    private final Integer boardSeq;
+    private final Integer emoticon;
 
     public CommentAnswer(Comment comment, Integer checkResult, Integer parentSeq) {
         this.comment = comment;
@@ -21,5 +23,7 @@ public class CommentAnswer {
         this.seq = comment.getSeq();
         this.id = comment.getId();
         this.content = comment.getContent();
+        this.boardSeq = comment.getBoardSeq();
+        this.emoticon = comment.getEmoticon();
     }
 }

@@ -125,6 +125,19 @@
 		WHERE seq=#{seq}
 	</update>
 
+	<!-- 게시글 좋아요	-->
+	<!-- 게시글 좋아요 레코드 생성 -->
+	<insert id="createBoardLike" parameterType="twk.cardselecter.board.entity.BoardLike">
+		INSERT INTO board_like (seq, id) VALUES (#{seq}, #{id});
+	</insert>
+
+	<!-- 게시글 좋아 수정 -->
+	<update id="updateBoardLike" parameterType="Integer">
+		UPDATE board
+		SET b_like = b_like + 1
+		WHERE seq = #{seq};
+	</update>
+
 </mapper>
 
 

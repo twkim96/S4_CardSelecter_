@@ -37,10 +37,12 @@ public class CommentService {
     }
 
     /**
-     * 댓글 추가
+     * 댓글 작성
      */
     public CommentPostResponse createComment(CommentPostRequest req){
-        Comment comment = req.toEntity();
+        Comment comment = Comment.builder()
+                .id(req.getId()).content(req.getContent())
+                .boardSeq(req.getBoardSeq()).build();
         Integer result = repository.createComment(comment);
         if (result < 1)
             return new CommentPostResponse(0);
@@ -48,10 +50,13 @@ public class CommentService {
     }
 
     /**
-     * 댓글 답변 추가
+     * 댓글 답변 작성
      */
+    @Transactional
     public CommentPostResponse createCommentAnswer(Integer parentSeq, CommentPostRequest req){
-        Comment comment = req.toEntity();
+        Comment comment = Comment.builder()
+                .id(req.getId()).content(req.getContent())
+                .boardSeq(req.getBoardSeq()).build();
         Integer checkResult = repository.updateCommentCheck(parentSeq);
         CommentAnswer commentAnswer = new CommentAnswer(comment, checkResult, parentSeq);
         CommentStep commentStep = new CommentStep(checkResult, parentSeq);
@@ -67,9 +72,10 @@ public class CommentService {
     /**
      * 댓글 수정
      */
-    public CommentPostResponse updateComment(String id, Integer seq, CommentPostRequest req){
-        Comment commentId = repository.getCommentBySeq(seq);
-        Comment comment = Comment.builder().seq(seq).id(req.getId())
+    public CommentPostResponse updateComment(String id, CommentPostRequest req){
+        Comment commentId = repository.getCommentBySeq(req.getBoardSeq());
+        Comment comment = Comment.builder()
+                .seq(req.getBoardSeq()).id(req.getId())
                 .content(req.getContent()).build();
         if(!commentId.getId().equals(id)){
             return null; //작성자만 댓글 삭제 가능

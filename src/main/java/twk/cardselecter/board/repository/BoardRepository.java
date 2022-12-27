@@ -10,6 +10,8 @@ import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Mapper
@@ -17,7 +19,7 @@ import java.util.List;
 public interface BoardRepository {
     List<Board> getBoardSearchPageList(BoardListParam param);
     Board getBoard(Integer seq);
-    Integer getBoardCount(@Param("choice") String choice,@Param("search") String search);
+    Integer getBoardCount(@Param("choice") String choice, @Param("search") String search);
     Integer getBoardAnswerCount(Integer parentSeq);
     Integer createBoard(Board board);
     Integer createBoardAnswer(BoardAnswer boardAnswer);

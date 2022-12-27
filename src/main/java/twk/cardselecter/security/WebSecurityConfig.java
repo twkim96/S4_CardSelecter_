@@ -39,7 +39,10 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.PATCH, "/bbs", "/comment").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/bbs", "/comment").authenticated()
                 .anyRequest().permitAll();
-        httpSecurity.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+
+        httpSecurity
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //세션을 사용하지 않음

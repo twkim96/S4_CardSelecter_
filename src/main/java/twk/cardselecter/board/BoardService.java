@@ -1,6 +1,8 @@
 package twk.cardselecter.board;
 
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.param.BoardAnswer;
@@ -17,6 +19,8 @@ import twk.cardselecter.board.entity.BoardLike;
 import twk.cardselecter.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -40,19 +44,19 @@ public class BoardService {
     /**
      *  특정글 조회 + 조회수 수정
      */
-    public BoardPostResponse getBoard(Integer seq, String id){
+    public BoardPostResponse getBoard(Integer seq, String id) {
         if(!id.isEmpty()){
-            System.out.println("check1");
             try {
+                System.out.println("result1");
                 Integer result = boardRepository.createBoardHistory(new BoardHistory(seq, id));
-                System.out.println("check2: "+result);
+                System.out.println("result2");
                 Integer updateResult = boardRepository.updateBoardHistory(seq);
-                System.out.println("check3: "+updateResult);
-            } catch (DupKeyException e){
-                //throw new DupKeyException("하루에 한 번만 조회수가 추가됩니다.", HttpStatus.CONFLICT);
+            } catch (DupKeyException | DataIntegrityViolationException e) {
+                throw new DupKeyException("한 번만 조회수가 추가됩니다.", HttpStatus.CONFLICT);
+            } catch (Exception e){
+//                System.out.println("오류오류");
             }
         }
-        System.out.println("check4: ");
         /*updateResult 사용해서 예외처리*/
         return new BoardPostResponse(boardRepository.getBoard(seq));
     }
@@ -88,14 +92,21 @@ public class BoardService {
     /**
      * 좋아요 추가(아이디 중복시 추가 X)
      */
-    public BoardLikeResponse getBoardLike(BoardLikeRequest req){
-        Integer result = 0;
-        Integer createResult = boardRepository.createBoardLike(
-                new BoardLike(req.getSeq(), req.getId()));
-        if(createResult > 0){
-            result = boardRepository.updateBoardLike(req.getSeq());
+    public BoardLikeResponse updateBoardLike(Integer seq, String id){
+        if(!id.isEmpty()){
+            try {
+                Integer result = boardRepository.createBoardLike(new BoardLike(seq, id));
+                System.out.println("result + " + result);
+                if(result > 0) {
+                    Integer updateResult = boardRepository.updateBoardLike(seq);
+                    /*updateResult 사용해서 예외처리*/
+                    return new BoardLikeResponse(result);
+                }
+            } catch (DupKeyException | DataIntegrityViolationException e){
+                throw new DupKeyException("좋아요는 게시글당 한 번만 가능합니다.", HttpStatus.CONFLICT);
+            }
         }
-        return new BoardLikeResponse(result);
+        return null;
     }
 
     /**

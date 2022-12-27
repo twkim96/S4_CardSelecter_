@@ -16,5 +16,6 @@ public class Comment {
     private String content;
     private String createAt;
     private int del;
-    private String emoticon;
+    private int boardSeq;
+    private int emoticon;
 }
