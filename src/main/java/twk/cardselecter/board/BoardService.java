@@ -16,6 +16,7 @@ import twk.cardselecter.board.dto.response.*;
 import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
+import twk.cardselecter.board.entity.CustomCardToBoard;
 import twk.cardselecter.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
 
@@ -62,14 +63,24 @@ public class BoardService {
     }
 
     /**
-     * 글 추가
+     * 글 추가 + 이미지 추가
      */
     public BoardCreateResponse createBoard(BoardCreateRequest req){
         Board board = req.toEntity();
         Integer result = boardRepository.createBoard(board);
-        if (result < 1)
-            return new BoardCreateResponse(0);
+        createCustomCardToBoard(req, board.getSeq());
         return new BoardCreateResponse(board.getSeq());
+    }
+
+    private void createCustomCardToBoard(BoardCreateRequest req, Integer seq) {
+        if(req.getFilePath() == null)
+            return;
+        try {
+            CustomCardToBoard customCard = req.toCardEntity(seq);
+            Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
+        } catch (RuntimeException e){
+            e.printStackTrace();
+        }
     }
 
     /**

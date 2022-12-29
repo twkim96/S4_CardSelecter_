@@ -9,6 +9,7 @@ import twk.cardselecter.board.dto.param.BoardStep;
 import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
+import twk.cardselecter.board.entity.CustomCardToBoard;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -31,5 +32,5 @@ public interface BoardRepository {
     Integer updateBoardHistory(Integer seq);
     Integer updateBoardLike(Integer seq);
     Integer deleteBoard(Integer seq);
-
+    Integer createCustomCardToBoard(CustomCardToBoard card);
 }

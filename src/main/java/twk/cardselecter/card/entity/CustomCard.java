@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class MemberLikeCustomCard {
+public class CustomCard {
     private String id;
     private String no;
     private String name;

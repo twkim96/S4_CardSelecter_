@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="twk.cardselecter.card.respository.CardRepository">
+
+<!--카드 리스트 조건따라 검색(차트)-->
+	<select id="getCardSearchPageList" parameterType="twk.cardselecter.card.dto.param.CardListParam"
+			resultType="twk.cardselecter.card.entity.Card">
+		select no, name, company, info, kind, inter
+		<if test="orderBy == 0">
+		from
+		(
+			select row_number() over (order by ${choice}) as rnum,
+			       a.no, name, company, info, kind, inter
+			from card1 a
+			join card_score b on a.no = b.no
+		) c
+			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
+		</if>
+		<if test="orderBy != 0">
+			from
+			(
+				select row_number() over (order by name) as rnum,
+				a.no, name, company, info, kind, inter
+				from card1 a
+				join card_benefit1 b on a.no = b.no
+				where b.benefit = #{choice}
+			) c
+			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
+		</if>
+	</select>
+
+<!--카드 리스트 page 에 쓰일 전체 갯수 출력-->
+	<select id="getCardCount" parameterType="twk.cardselecter.card.dto.param.CardListParam" resultType="Integer">
+		SELECT ifnull(count(*), 0)
+		FROM card1 a
+		<if test="orderBy == 1">
+			join card_benefit1 c on a.no = c.no
+			where c.benefit = #{choice}
+		</if>
+	</select>
+
+<!--카드 클릭 페이지 1: 카드 정보-->
+	<select id="getCard" parameterType="String" resultType="twk.cardselecter.card.entity.Card">
+		SELECT no, name, company, info, kind, inter
+		FROM card1
+		WHERE no = #{no}
+	</select>
+
+<!--카드 클릭 페이지 2: 카드 혜택 정보-->
+	<select id="getCardBenefit" parameterType="String" resultType="twk.cardselecter.card.entity.CardBenefit">
+		SELECT no, benefit, amount
+		FROM card_benefit1
+		WHERE no = #{no}
+	</select>
+
+<!--카드 클릭 페이지 3: 카드 선호 연령대 정보-->
+	<select id="getCardAge" parameterType="String" resultType="twk.cardselecter.card.entity.CardScore">
+		SELECT no, score20, score30, score40, score50, score60
+		FROM card_score
+		WHERE no = #{no}
+	</select>
+
+<!--커스텀 카드 리스트 page 에 쓰일 전체 갯수 출력(해당 id만)-->
+	<select id="getCustomCardCount" parameterType="twk.cardselecter.card.dto.param.CardCustomListParam" resultType="Integer">
+		select ifnull(count(*), 0)
+		from custom_card
+		where id = #{id}
+	</select>
+
+<!--커스텀 카드 리스트 출력(해당 id만)-->
+	<select id="getCustomCardList" parameterType="twk.cardselecter.card.dto.param.CardCustomListParam"
+			resultType="twk.cardselecter.card.entity.CustomCard">
+		select id, no, name, filepath
+		from
+		(
+			select row_number() over (order by no) as rnum,
+			id, no, name, filepath
+			from custom_card a
+			where id = #{id}
+		) b
+		WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
+	</select>
+
+<!-- 커스텀 카드 생성 -->
+	<insert id="createCustomCard" parameterType="twk.cardselecter.card.entity.CustomCard">
+		INSERT into custom_card (id, no, name, filepath)
+		VALUES (#{id}, #{no}, #{name}, #{filePath})
+	</insert>
+
+<!-- 커스텀 카드 삭제 -->
+	<delete id="deleteCustomCard" parameterType="twk.cardselecter.card.entity.CustomCard">
+		delete from custom_card
+		where id=#{id} and filepath=#{filePath}
+	</delete>
+
+</mapper>
