@@ -23,11 +23,4 @@ public class BoardCreateRequest {
                 .content(content)
                 .build();
     }
-
-    public CustomCardToBoard toCardEntity(Integer seq){
-        return CustomCardToBoard.builder()
-                .filepath(filePath)
-                .seq(seq)
-                .build();
-    }
 }

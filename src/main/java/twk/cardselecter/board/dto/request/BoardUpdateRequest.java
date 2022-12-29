@@ -14,6 +14,7 @@ public class BoardUpdateRequest {
     private String title;
     @NotBlank(message = "내용을 입력 해주세요.")
     private String content;
+    private String filePath;
     public Board toEntity(){
         return Board.builder()
                 .id(id)

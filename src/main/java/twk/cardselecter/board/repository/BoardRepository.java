@@ -32,5 +32,7 @@ public interface BoardRepository {
     Integer updateBoardHistory(Integer seq);
     Integer updateBoardLike(Integer seq);
     Integer deleteBoard(Integer seq);
+    String getCustomCardToBoard(Integer seq);
     Integer createCustomCardToBoard(CustomCardToBoard card);
+    Integer deleteCustomCardToBoard(Integer seq);
 }

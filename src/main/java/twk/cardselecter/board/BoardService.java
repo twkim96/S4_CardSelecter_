@@ -48,18 +48,17 @@ public class BoardService {
     public BoardPostResponse getBoard(Integer seq, String id) {
         if(!id.isEmpty()){
             try {
-                System.out.println("result1");
                 Integer result = boardRepository.createBoardHistory(new BoardHistory(seq, id));
-                System.out.println("result2");
                 Integer updateResult = boardRepository.updateBoardHistory(seq);
             } catch (DupKeyException | DataIntegrityViolationException e) {
-                throw new DupKeyException("한 번만 조회수가 추가됩니다.", HttpStatus.CONFLICT);
+//                throw new DupKeyException("한 번만 조회수가 추가됩니다.", HttpStatus.CONFLICT);
             } catch (Exception e){
 //                System.out.println("오류오류");
             }
         }
         /*updateResult 사용해서 예외처리*/
-        return new BoardPostResponse(boardRepository.getBoard(seq));
+        String customCardToBoard = boardRepository.getCustomCardToBoard(seq);
+        return new BoardPostResponse(boardRepository.getBoard(seq), customCardToBoard);
     }
 
     /**
@@ -68,15 +67,30 @@ public class BoardService {
     public BoardCreateResponse createBoard(BoardCreateRequest req){
         Board board = req.toEntity();
         Integer result = boardRepository.createBoard(board);
-        createCustomCardToBoard(req, board.getSeq());
+        createCustomCardToBoard(req.getFilePath(), board.getSeq());
         return new BoardCreateResponse(board.getSeq());
     }
 
-    private void createCustomCardToBoard(BoardCreateRequest req, Integer seq) {
-        if(req.getFilePath() == null)
+    private void createCustomCardToBoard(String filePath, Integer seq) {
+        if(filePath == null)
             return;
         try {
-            CustomCardToBoard customCard = req.toCardEntity(seq);
+            CustomCardToBoard customCard = CustomCardToBoard.builder()
+                    .filePath(filePath).seq(seq).build();
+            Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
+        } catch (RuntimeException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void updateCustomCardToBoard(String filePath, Integer seq) {
+        if(filePath == null) {
+            Integer deleteResult = boardRepository.deleteCustomCardToBoard(seq);
+            return;
+        }
+        try {
+            CustomCardToBoard customCard = CustomCardToBoard.builder()
+                    .filePath(filePath).seq(seq).build();
             Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
         } catch (RuntimeException e){
             e.printStackTrace();
@@ -97,6 +111,7 @@ public class BoardService {
             Integer updateStepResult = boardRepository.updateBoardStep(boardStep);
             Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
         }
+        updateCustomCardToBoard(req.getFilePath(), board.getSeq());
         return new BoardCreateResponse(board.getSeq());
     }
 
@@ -127,6 +142,7 @@ public class BoardService {
         Board board = Board.builder().seq(seq).id(req.getId())
                 .content(req.getContent()).title(req.getTitle()).build();
         Integer updateResult = boardRepository.updateBoard(board);
+        createCustomCardToBoard(req.getFilePath(), seq);
         return new BoardUpdateResponse(updateResult);
     }
 

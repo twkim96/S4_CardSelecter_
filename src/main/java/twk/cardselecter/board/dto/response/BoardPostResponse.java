@@ -10,4 +10,5 @@ import twk.cardselecter.board.entity.Board;
 @ToString
 public class BoardPostResponse {
     private Board board;
+    private String filePath;
 }

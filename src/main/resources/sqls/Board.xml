@@ -138,6 +138,25 @@
 		WHERE seq = #{seq};
 	</update>
 
+	<!-- 커스텀카드 게시글 연관 테이블 생성 -->
+	<insert id="createCustomCardToBoard" parameterType="twk.cardselecter.board.entity.CustomCardToBoard">
+		INSERT INTO custom_card_to_board(filepath, seq)
+		VALUES (#{filePath}, #{seq})
+		on duplicate key update filepath=#{filePath}, seq=#{seq}
+	</insert>
+
+	<!-- 커스텀 카드 삭제 -->
+	<delete id="deleteCustomCardToBoard" parameterType="twk.cardselecter.board.entity.CustomCardToBoard">
+		delete from custom_card_to_board
+		where seq=#{seq}
+	</delete>
+
+	<!-- 게시글 커스텀 카드 출력-->
+	<select id="getCustomCardToBoard" parameterType="Integer" resultType="String">
+		select filepath
+		from custom_card_to_board
+		where seq=#{seq}
+	</select>
 </mapper>
 
 
