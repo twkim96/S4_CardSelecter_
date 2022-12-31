@@ -9,4 +9,5 @@ public class CardListRequest {
     private Integer page;
     private Integer orderBy;
     private String choice;
+    private Integer itemCount;
 }

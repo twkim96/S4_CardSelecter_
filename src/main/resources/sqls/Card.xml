@@ -15,7 +15,7 @@
 			select row_number() over (order by ${choice}) as rnum,
 			       a.no, name, company, info, kind, inter
 			from card1 a
-			join card_score b on a.no = b.no
+			left join card_score b on a.no = b.no
 		) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
 		</if>
@@ -25,7 +25,7 @@
 				select row_number() over (order by name) as rnum,
 				a.no, name, company, info, kind, inter
 				from card1 a
-				join card_benefit1 b on a.no = b.no
+				left join card_benefit1 b on a.no = b.no
 				where b.benefit = #{choice}
 			) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
@@ -37,7 +37,7 @@
 		SELECT ifnull(count(*), 0)
 		FROM card1 a
 		<if test="orderBy == 1">
-			join card_benefit1 c on a.no = c.no
+			left join card_benefit1 c on a.no = c.no
 			where c.benefit = #{choice}
 		</if>
 	</select>

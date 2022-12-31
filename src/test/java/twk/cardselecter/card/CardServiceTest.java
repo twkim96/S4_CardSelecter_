@@ -23,7 +23,7 @@ class CardServiceTest {
     @Test
     void getCardList() {
         CardListResponse score = service.getCardList(
-                new CardListRequest(1, 0, "score30"));
+                new CardListRequest(1, 0, "score30", 5));
         System.out.println(score);
     }
 

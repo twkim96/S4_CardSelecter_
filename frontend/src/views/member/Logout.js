@@ -16,7 +16,7 @@ function Logout() {
 
         alert(user.name + "님, 성공적으로 로그아웃 됐습니다 🔒");
         dispatch(logout());
-        navigate("/");
+        navigate(-1);
     };
 
     useEffect(() => {

@@ -27,13 +27,14 @@
     display: flex;
     margin-top: 10px;
 }
+
 .login-box img{
     margin-left: 10px;
     margin-bottom: 5px;
 }
 
 #h-container h1 {
-    margin-right: 30px;
+    margin: 0 30px 10px 20px;
     font-size: 40px;
 }
 
@@ -92,7 +93,7 @@ div.login-menu div:nth-child(2) img {
     position: relative;
     display: flex;
     margin: 0 auto;
-    height: 70px;
+    height: 50px;
 }
 
 #nav-container .nav-main {
@@ -100,7 +101,7 @@ div.login-menu div:nth-child(2) img {
 }
 
 #nav-container .nav-main > li {
-    margin: 15px 5px 20px 15px;
+    margin: 8px 5px 20px 15px;
 }
 
 .nav-main h1 {
@@ -128,6 +129,7 @@ div.login-menu div:nth-child(2) img {
     background-color: white;
     box-shadow: 0.2px 0.2px;
     border-radius: 4px;
+    margin-top: 25px;
 }
 
 .nav-main > li:hover .nav-show {
@@ -154,4 +156,17 @@ div.login-menu div:nth-child(2) img {
 .nav-main p {
     font-size: medium;
     font-weight: 400;
+}
+
+footer .footer-nav{
+    position: fixed;
+    right: 40px;
+    bottom: 0;
+    height: 120px;
+}
+
+footer .footer-box{
+    height: 250px;
+    text-align: center;
+    background-color: #f6f6f6;
 }

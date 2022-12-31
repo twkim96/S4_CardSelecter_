@@ -5,8 +5,6 @@ import {useDispatch} from "react-redux";
 import {login} from "../../redux/user";
 
 function Login(){
-
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [id, setId] = useState("");
@@ -26,6 +24,7 @@ function Login(){
         console.log(id, pwd)
         try {
             const resp = await axios.post("http://localhost:8818/user/login", req)
+            // const resp = await axios.all([axios.post("http://localhost:8818/user/login", req), axios.])
             console.log(resp)
             alert(resp.data.name + "님, 성공적으로 로그인 되었습니다.");
             localStorage.setItem("bbs_access_token", resp.data.jwt);

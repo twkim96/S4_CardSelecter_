@@ -1,0 +1,22 @@
+.text-center{
+    text-align: center;
+}
+
+.text-big{
+    font-family: Arial unicode MS,sans-serif;
+    margin-bottom: 5px;
+    line-height: 150%;
+    font-size: larger;
+}
+
+.text-middle{
+    font-family: Arial unicode MS,sans-serif;
+    font-size: medium;
+}
+
+.text-title{
+    font-family: Arial unicode MS,sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 50px;
+}

@@ -33,9 +33,8 @@ public class CardService {
      * 메인페이지 및 랭킹 카드 리스트 조회
      */
     public CardListResponse getCardList(CardListRequest req){
-        int itemCount = 10;
         CardListParam param = new CardListParam(req.getPage(), req.getOrderBy(), req.getChoice());
-        param.setPageParam(req.getPage(), itemCount);
+        param.setPageParam(req.getPage(), req.getItemCount());
         int pageCnt = repository.getCardCount(param);
         List<Card> cardList = repository.getCardSearchPageList(param);
         return new CardListResponse(cardList, pageCnt);

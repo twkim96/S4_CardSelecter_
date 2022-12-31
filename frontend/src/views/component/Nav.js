@@ -6,12 +6,13 @@ function Nav() {
             <div className="nav">
                 <ul className="nav-main">
                     <li>
-                        <Link className="dropdown-item" to='/cardChart/score'><h1>카셀차트</h1></Link>
+                        <Link className="dropdown-item" to='/'><h1>카셀차트</h1></Link>
                         <ul className="nav-show">
                             <li>
-                                <a href="#">
+                                <Link to={`/card/chart/0`} state={{
+                                    choice: "score20", itemCount:10}}>
                                     <p>카셀차트TOP10</p>
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <a href="#"><p>카드타입별순위</p></a>

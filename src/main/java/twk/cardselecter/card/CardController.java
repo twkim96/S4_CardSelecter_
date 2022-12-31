@@ -35,8 +35,9 @@ public class CardController {
     @GetMapping("/chart/{orderBy}")
     public ResponseEntity<CardListResponse> getCardChart(@PathVariable Integer orderBy,
                                                          @RequestParam String choice,
-                                                         @RequestParam Integer page) {
-        CardListRequest cardListRequest = new CardListRequest(page, orderBy, choice);
+                                                         @RequestParam Integer page,
+                                                         @RequestParam Integer itemCount) {
+        CardListRequest cardListRequest = new CardListRequest(page, orderBy, choice, itemCount);
         CardListResponse cardList = service.getCardList(cardListRequest);
         log.info("cardList {}", cardList);
         return ResponseEntity.ok(cardList);
