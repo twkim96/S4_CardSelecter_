@@ -1,5 +1,6 @@
 
 #chart-view {
+    position: relative;
     background-color: #f5f5f5;
     padding-bottom: 100px;
 }
@@ -43,9 +44,9 @@
 #chart-view .container .box {
     display: flex;
 }
-
 #chart-view .container .box > li:first-child {
     width: 930px;
+    height: 1200px;
 }
 
 #chart-view .container .box .empty-box {
@@ -109,3 +110,5 @@
     font-weight: bolder;
     color: grey;
 }
+
+

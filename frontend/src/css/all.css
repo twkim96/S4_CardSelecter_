@@ -20,3 +20,60 @@
     font-weight: 400;
     margin-bottom: 50px;
 }
+
+.text-bigger{
+    font-family: Arial unicode MS,sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.text-line150{
+    line-height: 150%;
+}
+
+.inputBox-big{
+    margin-top: 5px;
+    width: 460px;
+    height: 45px;
+}
+
+
+
+
+
+
+.pagination {
+    position: absolute;
+    display: flex;
+    left: 400px;
+    bottom: 50px;
+    margin-top: 15px;
+}
+
+ul.pagination li{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+ul.pagination li a {
+    font-family: Arial unicode MS,sans-serif;
+}
+ul.pagination li.active a {
+    color: white;
+}
+ul.pagination li.active {
+    background-color: black;
+}
+ul.pagination li a:hover, ul.pagination li a.active {
+    color: black;
+}
+.page-selection {
+    width: 48px;
+    height: 30px;
+    color: #337ab7
+}
+
