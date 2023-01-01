@@ -44,7 +44,7 @@ function Nav() {
                     <li>
                         <Link to={`/card/chart/1`} state={{
                             choice: "교통비 할인", itemCount:10}}>
-                            <h1>혜택별 순위</h1>
+                            <h1>혜택별 카트</h1>
                         </Link>
                         <ul className="nav-show">
                             <li>
@@ -74,16 +74,57 @@ function Nav() {
                         </ul>
                     </li>
                     <li>
-                        <h2>이벤트</h2>
+                        <Link to={`/card/chart/2`} state={{
+                            choice: "삼성 카드", itemCount:10}}>
+                            <h1>회사별 카드</h1>
+                        </Link>
+                        <ul className="nav-show">
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "삼성카드", itemCount:10}}>
+                                    <p>삼성 카드</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "국민카드", itemCount:10}}>
+                                    <p>국민 카드</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "농협카드", itemCount:10}}>
+                                    <p>농협 카드</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "신한 카드", itemCount:10}}>
+                                    <p>신한 카드</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "ibk 카드", itemCount:10}}>
+                                    <p>ibk 카드</p>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={`/card/chart/2`} state={{
+                                    choice: "롯데 카드", itemCount:10}}>
+                                    <p>롯데 카드</p>
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><h1>게시판</h1></a>
                         <ul className={"nav-show"}>
                             <li>
-                                <Link className="dropdown-item" to="/bbswrite"><p>글추가</p></Link>
+                                <Link className="dropdown-item" to="/board/write"><p>글추가</p></Link>
                             </li>
                             <li>
-                                <Link className="dropdown-item" to="/bbslist"><p>글목록</p></Link>
+                                <Link className="dropdown-item" to="/board/list"><p>글목록</p></Link>
                             </li>
                         </ul>
                     </li>

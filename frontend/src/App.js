@@ -1,6 +1,7 @@
 import './css/reset.css';
 import "./css/all.css"
 import "./css/component.css"
+import "./css/board.css"
 import Main from "./views/component/Main";
 import {BrowserRouter} from "react-router-dom";
 import Header from "./views/component/Header";

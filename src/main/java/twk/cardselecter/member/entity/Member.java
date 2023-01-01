@@ -13,5 +13,4 @@ public class Member {
     private String pwd;
     private String name;
     private String email;
-
 }

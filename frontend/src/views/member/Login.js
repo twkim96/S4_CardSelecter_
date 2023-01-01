@@ -50,7 +50,10 @@ function Login(){
                 <tr>
                     <th>비밀번호</th>
                     <td>
-                        <input type="password" value={pwd} onChange={changePwd} size="50px" />
+                        <input type="password" value={pwd} onChange={changePwd} size="50px" onKeyPress={(e)=>{
+                            if(e.key==='Enter')
+                                logOn();
+                        }}/>
                     </td>
                 </tr>
                 </tbody>

@@ -7,9 +7,9 @@ const ShowBar = () => {
                     <h1>카드 셀렉터의 기능</h1>
                 </div>
                 <div className={"contents"}>
-                    {images.map((img, index) => (
-                        <div className={"content"}>
-                            <img src={`/images/${img}.jpg`} alt={""}/>
+                    {images.map((img) => (
+                        <div key={img} className={"content"}>
+                            <img src={`/images/${img}.jpg`} alt=""/>
                             <p className={"text-center text-big"}>{img} 기능</p>
                         </div>
                     ))}

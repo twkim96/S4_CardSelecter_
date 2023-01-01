@@ -23,6 +23,7 @@ public interface BoardRepository {
     Integer getBoardCount(@Param("choice") String choice, @Param("search") String search);
     Integer getBoardAnswerCount(Integer parentSeq);
     Integer createBoard(Board board);
+
     Integer createBoardAnswer(BoardAnswer boardAnswer);
     Integer createBoardHistory(BoardHistory boardHistory);
     Integer createBoardLike(BoardLike boardLike);

@@ -9,4 +9,5 @@ public class BoardListRequest {
     private String choice;
     private String search;
     private Integer page;
+    private Integer itemCount;
 }

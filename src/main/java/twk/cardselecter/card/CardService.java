@@ -44,10 +44,10 @@ public class CardService {
      * 특정 카드 조회(카드 정보, 카드 혜택, 카드 선호도)
      */
     public CardResponse getCard(String no){
-        Card card = repository.getCard(no);
-        List<CardBenefit> cardBenefitList = repository.getCardBenefit(no);
-        Map<Integer, Float> wantAge = wantAge(repository.getCardAge(no).mapScore());
-        return new CardResponse(card, cardBenefitList, wantAge);
+            Card card = repository.getCard(no);
+            List<CardBenefit> cardBenefitList = repository.getCardBenefit(no);
+            Map<Integer, Float> wantAge = wantAge(repository.getCardAge(no).mapScore());
+            return new CardResponse(card, cardBenefitList, wantAge);
     }
 
     /**

@@ -10,7 +10,8 @@ function GoChart(){
                         디자인적으로 이쁜 카드를 만들고 싶은 당신을 위해 <br/>준비해놓은 멋진 썰매가 여기 있습니다.<br/><br/>
                         썰매를 타고 가서 카드를 고르고 원하는 이미지를 넣을 수 있답니다.<br/><br/>
                     </p>
-                    <Link to={"/"}>
+                    <Link to={`/card/chart/0`} state={{
+                        choice: "score20", itemCount:10}}>
                         <p className={"text-big text-center"}>[ 들어갈래요 ]</p>
                         <div className={"img-show"}>
                             <img src="/images/dog.jpeg" alt=""/>

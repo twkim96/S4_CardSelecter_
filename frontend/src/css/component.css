@@ -106,7 +106,7 @@ div.login-menu div:nth-child(2) img {
 
 .nav-main h1 {
     width: 140px;
-    font-size: larger;
+    font-size: large;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
@@ -196,4 +196,9 @@ footer .footer-box{
 
 #table-wrap .table > ul{
     margin-top: 30px;
+}
+
+#table-wrap .button-wrapper {
+    display: flex;
+    justify-content: center;
 }

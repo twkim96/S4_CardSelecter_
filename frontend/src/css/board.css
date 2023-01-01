@@ -1,0 +1,95 @@
+#board-list-wrap{
+    margin: 0 auto 100px auto;
+    width: 1130px;
+}
+#board-list-wrap .order{
+    margin: 10px;
+}
+#board-list-wrap select{
+    height: 28px;
+}
+#board-list-wrap .table{
+    display: flex;
+    border-bottom: #eeeeee 1px solid;
+}
+
+#board-list-wrap .table > li{
+    display: flex;
+    height: 36px;
+    align-items: center;
+}
+
+#board-list-wrap .table > li:first-child{
+    justify-content: center;
+    width: 85px;
+}
+
+#board-list-wrap .table > li:nth-child(2){
+    margin-left: 20px;
+    width: 500px;
+}
+
+#board-list-wrap .table > li:nth-child(3){
+    justify-content: center;
+    width: 85px;
+}
+
+#board-list-wrap .table > li:nth-child(4){
+    justify-content: center;
+    width: 85px;
+}
+
+#board-list-wrap .table > li:nth-child(5){
+    justify-content: center;
+    width: 85px;
+}
+
+#board-list-wrap .table > li:last-child{
+    justify-content: center;
+    width: 200px;
+}
+
+#board-list-wrap .table-title{
+    border-top: #bbbbbb 1px solid;
+    border-bottom: #bbbbbb 1px solid;
+}
+
+#board-list-wrap .table-title > li{
+    justify-content: center;
+}
+
+#board-list-wrap .page-wrap{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#board-list-wrap .search-wrap .custom-select{
+    margin-left: 10px;
+    height: 28px;
+}
+#board-list-wrap .search-wrap input{
+    margin-left: 10px;
+    height: 23px;
+}
+
+#board-list-wrap .search-wrap{
+    position: relative;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    width: 1100px;
+    height: 50px;
+}
+
+#board-list-wrap .button-zero{
+    margin-left: 10px;
+    align-items: center;
+    background-color: #eeeeee;
+}
+
+#board-list-wrap .search-wrap .button-wrapper{
+    position: absolute;
+    height: 28px;
+    right: 20px;
+}

@@ -13,7 +13,6 @@ function CardMain(props) {
     const background = {backgroundColor: data.color}
 
 
-
     const getCardList = async (p, o, c, i) => {
         try {
             const resp = await axios.get("http://localhost:8818/card",
@@ -51,38 +50,40 @@ function CardMain(props) {
 
     return (
         <div style={background}>
-        <div className="event-card" >
-                    <div className={"text-title"}><h1>{props.name}</h1></div>
-                    <div className={"card-object"}>
-                        <img src="/images/left-arrow.png" alt="" className={"left"}
-                             onClick={clickLeft}/>
-                        <img src="/images/right-chevron.png" alt="" className={"right"}
-                             onClick={clickRight}/>
-                        {
-                            cardList.map(function (card, idx) {
-                                return (
-                                    <List obj={card} key={idx} cnt={idx + 1}/>
-                                )
-                            })
-                        }
-                    </div>
+            <div className="event-card">
+                <div className={"text-title"}><h1>{props.name}</h1></div>
+                <div className={"card-object"}>
+                    <img src="/images/left-arrow.png" alt="" className={"left"}
+                         onClick={clickLeft}/>
+                    <img src="/images/right-chevron.png" alt="" className={"right"}
+                         onClick={clickRight}/>
+                    {
+                        cardList.map(function (card, idx) {
+                            return (
+                                <List obj={card} key={idx} cnt={idx + 1}/>
+                            )
+                        })
+                    }
                 </div>
-        </div>
-                )
-            }
-
-            function List(props) {
-            const card = props.obj;
-            const path = "/images/" + card.no + ".png"
-            return (
-            <div className={"card-info"}>
-            <Link to={{pathname: `/carddetail/${card.no}`}}>
-            <img src={path} alt=""/>
-            <h3 className={"text-big text-center"}>{card.name}</h3>
-            <p className={"text-middle text-center"}>{card.company}</p>
-            </Link>
             </div>
-            )
-        }
+        </div>
+    )
+}
 
-            export default CardMain;
+function List(props) {
+    const card = props.obj;
+    const path = "/images/" + card.no + ".jpg"
+    return (
+        <div className={"card-info"}>
+            <Link to={`/card/detail/${card.no}`}>
+                <div className={"img-wrap"}>
+                    <img src={path} alt="no-img"/>
+                </div>
+                <h3 className={"text-big text-center"}>{card.name}</h3>
+                <p className={"text-middle text-center"}>{card.company}</p>
+            </Link>
+        </div>
+    )
+}
+
+export default CardMain;

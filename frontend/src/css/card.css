@@ -44,9 +44,14 @@
 #chart-view .container .box {
     display: flex;
 }
-#chart-view .container .box > li:first-child {
-    width: 930px;
-    height: 1200px;
+#chart-view .container .box > .first-li {
+    width: 900px;
+    height: 1700px;
+}
+.page {
+    display: flex;
+    width: 900px;
+    justify-content: center;
 }
 
 #chart-view .container .box .empty-box {
@@ -63,18 +68,20 @@
 
 #chart-view .container .box .fl-box {
     position: relative;
-    height: 100px;
+    height: 130px;
     background-color: white;
-    box-shadow: 1px 1px;
     width: 900px;
     align-items: center;
     display: flex;
+}
+#chart-view .container .box .fl-box:first-child {
+    border-radius: 20px;
     margin-bottom: 20px;
 }
 
 #chart-view .container .box .fl-box > img {
     position: absolute;
-    right: 0;
+    right: 10px;
 }
 
 #chart-view .container .box .fl-box h1 {
@@ -82,14 +89,22 @@
     font-weight: bold;
 }
 
-#chart-view .container .box .fl-box img {
-    width: 70px;
+#chart-view .container .box .fl-box .card-img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #chart-view .container .box .fl-box li {
     margin-left: 40px;
 }
 
+#chart-view .container .box .fl-box .img-wrap {
+    display: flex;
+    width: 120px;
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+}
 #chart-view .container .box .fl-box .row-box {
     display: block;
 }
@@ -109,6 +124,68 @@
     font-size: xxx-large;
     font-weight: bolder;
     color: grey;
+}
+
+
+#container-wrap {
+    background-color: #f5f5f5;
+}
+
+#container-wrap .container {
+    padding: 0 0 0 60px;
+    margin: 0 auto;
+    width: 1196px;
+}
+#container-wrap .container .img {
+    margin: 30px auto 0 auto;
+    width: 300px;
+}
+
+#container-wrap .container .img img {
+    width: 300px;
+}
+#container-wrap .container .row .data-box {
+    box-shadow: 0.2px 0.2px;
+    background-color: white;
+    text-align: center;
+}
+#container-wrap .container .row .data-box h3 {
+    font-size: xx-large;
+    font-weight: bolder;
+    padding-top: 30px;
+}
+#container-wrap .container .row .data-box p {
+    font-size: large;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+#container-wrap .container .row .data-box pre {
+    font-size: large;
+    font-weight: normal;
+    text-align: left;
+    margin: 40px 20px 20px 20px;
+    line-height: 150%;
+}
+#container-wrap .container .row .data-box h4 {
+    font-size: larger;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    color: orangered;
+}
+#container-wrap .container .row .data-box h5 {
+    font-size: large;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    line-height: 200%;
+}
+#container-wrap .container .row .data-box hr{
+    border :0;
+    border-top: 5px dotted #bbbbbb;
+    margin-bottom: 20px;
+}
+
+#container-wrap .container .row .data-box pre{
+    white-space: pre-line;
 }
 
 

@@ -37,24 +37,27 @@
     height: 45px;
 }
 
+.button-zero{
+    border: 0;
+    outline: 0;
+    background-color: #f5f5f5;
+    cursor: pointer
+}
 
 
 
 
 
-.pagination {
-    position: absolute;
+
+
+.pagination{
     display: flex;
-    left: 400px;
-    bottom: 50px;
-    margin-top: 15px;
 }
 
 ul.pagination li{
     display: flex;
     width: 40px;
     height: 40px;
-    border: 1px solid black;
     align-items: center;
     justify-content: center;
 }
@@ -63,17 +66,17 @@ ul.pagination li a {
     font-family: Arial unicode MS,sans-serif;
 }
 ul.pagination li.active a {
-    color: white;
 }
 ul.pagination li.active {
-    background-color: black;
+    background-color: #f9f9f9;
+    border: 1px solid #aaaaaa;
 }
 ul.pagination li a:hover, ul.pagination li a.active {
-    color: black;
+    background-color: #f9f9f9;
 }
 .page-selection {
     width: 48px;
     height: 30px;
-    color: #337ab7
+    color: #eeeeee;
 }
 

@@ -22,7 +22,7 @@ class BoardServiceTest {
 
     @Test
     void getBoardList() {
-        BoardListResponse boardList = boardService.getBoardList(new BoardListRequest("", "", 1));
+        BoardListResponse boardList = boardService.getBoardList(new BoardListRequest("", "", 1, 5));
         System.out.println(boardList);
     }
 

@@ -19,7 +19,7 @@
 		) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
 		</if>
-		<if test="orderBy != 0">
+		<if test="orderBy == 1">
 			from
 			(
 				select row_number() over (order by name) as rnum,
@@ -27,6 +27,16 @@
 				from card1 a
 				left join card_benefit1 b on a.no = b.no
 				where b.benefit = #{choice}
+			) c
+			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
+		</if>
+		<if test="orderBy == 2">
+			from
+			(
+			select row_number() over (order by name) as rnum,
+			a.no, name, company, info, kind, inter
+			from card1 a
+			where a.company = #{choice}
 			) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
 		</if>

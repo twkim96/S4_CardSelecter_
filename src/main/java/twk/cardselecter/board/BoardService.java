@@ -34,7 +34,7 @@ public class BoardService {
      * 게시글 조회
      */
     public BoardListResponse getBoardList(BoardListRequest req){
-        int itemCount = 5;
+        int itemCount = req.getItemCount();
         BoardListParam param = new BoardListParam(req.getChoice(), req.getSearch(), req.getPage());
         param.setPageParam(req.getPage(), itemCount);
         List<Board> boardList = boardRepository.getBoardSearchPageList(param);

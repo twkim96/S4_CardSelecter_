@@ -15,7 +15,8 @@ function Footer() {
                     Made by TWKim96<br/>
                     with Spring Boot + React<br/>
                     PC 로만 테스트하여 제작했습니다. 모바일은 제대로 적용 X<br/>
-                    https://github.com/hellonayeon/bbs 를 참고하여 제작하였습니다.
+                    테스트 환경: 맥OS, 구글 크롬(80퍼센트로 축소)<br/>
+                    https://github.com/hellonayeon/bbs 를 참고하여 제작하였습니다.<br/>
                 </div>
             </div>
         </footer>
