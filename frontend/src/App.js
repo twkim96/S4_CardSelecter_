@@ -7,11 +7,13 @@ import {BrowserRouter} from "react-router-dom";
 import Header from "./views/component/Header";
 import Nav from "./views/component/Nav";
 import Footer from "./views/component/Footer";
+import ScrollToTop from "./views/hooks/ScrollToTop";
 
 function App() {
   return (
     <div className="App">
         <BrowserRouter>
+            <ScrollToTop />
             <Header/>
             <Nav/>
             <Main/>

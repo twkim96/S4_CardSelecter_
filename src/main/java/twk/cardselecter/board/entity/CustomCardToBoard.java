@@ -8,7 +8,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CustomCardToBoard {
-    private String no;
     private String filePath;
     private int seq;
 }

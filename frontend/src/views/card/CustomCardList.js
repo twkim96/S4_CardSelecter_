@@ -47,9 +47,8 @@ function CustomCardList(props){
     }
     const onChange = (e) => {
         const card = e.target.value
-        console.log(card+"12")
-        dispatch(select({customCard: card.no, customPath: card.filePath}))
-        console.log(selectCard+"23");
+        console.log(card)
+        dispatch(select({customCard: card}))
     }
     useEffect(()=>{
         getCustomCardList(page)

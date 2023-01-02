@@ -62,7 +62,6 @@ public class CardController {
         log.info("getCustomCardList {}", customCardList);
         return ResponseEntity.ok(customCardList);
     }
-
     /**
      * 커스텀 카드 생성(이미지 받아와서 생성)
      */

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.card.dto.param.CardCustomListParam;
 import twk.cardselecter.card.dto.param.CardListParam;
 import twk.cardselecter.card.dto.reqeust.CardCustomCreateRequest;
@@ -47,9 +48,10 @@ public class CardService {
      */
     public CardResponse getCard(String no){
             Card card = repository.getCard(no);
+            List<Board> board = repository.getBoardToCustomCard(no);
             List<CardBenefit> cardBenefitList = repository.getCardBenefit(no);
             Map<Integer, Float> wantAge = wantAge(repository.getCardAge(no).mapScore());
-            return new CardResponse(card, cardBenefitList, wantAge);
+            return new CardResponse(card, cardBenefitList, wantAge, board);
     }
 
     /**

@@ -2,6 +2,7 @@ package twk.cardselecter.card.respository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.card.dto.param.CardCustomListParam;
 import twk.cardselecter.card.dto.param.CardListParam;
 import twk.cardselecter.card.entity.Card;
@@ -24,4 +25,5 @@ public interface CardRepository {
     List<CustomCard> getCustomCardList(CardCustomListParam param);
     void createCustomCard(CustomCard customCard);
     void deleteCustomCard(CustomCard customCard);
+    List<Board> getBoardToCustomCard(String no);
 }

@@ -14,7 +14,7 @@ import BoardAnswer from "../board/BoardAnswer";
 function Router(){
     return(
         <Routes>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={<Home/>} />
             <Route path="/join" element={<Join/>}/>
             <Route path="/logout" element={<Logout />}/>
             <Route path={"/card/chart/:orderBy"} element={<CardChart/>}/>

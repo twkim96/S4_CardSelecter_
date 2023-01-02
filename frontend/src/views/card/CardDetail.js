@@ -16,6 +16,8 @@ function CardDetail() {
     const [isUpload, setIsUpload] = useState(false);
     const [result, setResult] = useState("");
     const [customCard, setCustomCard] = useState([]);
+    const [boardList, setBoardList] = useState([]);
+
     const onChange = (e) => {
         setImgFile(e.target.files[0])
         console.log(imgFile)
@@ -51,6 +53,7 @@ function CardDetail() {
             const resp = await axios.get(`http://localhost:8818/card/${no}`)
             setCard(resp.data.card);
             setCardBene(resp.data.cardBenefitList)
+            setBoardList(resp.data.boardList);
         } catch (err) {
             alert("카드 정보를 가져오는데 문제가 생겼습니다." + err)
             navigate(-1)
@@ -64,7 +67,7 @@ function CardDetail() {
         getCardDetail();
     }, []);
 
-    console.log(card.company)
+    console.log(boardList)
     return (
         <div id="container-wrap">
             <div className="container">
@@ -136,8 +139,53 @@ function CardDetail() {
                     :
                     null
             }
+            {
+                (boardList.length !== 0) ?
+                    <div className={"board-card"}>
+                        <p className={"text-title text-middle"}>해당 카드가 들어간 QnA글</p>
+                        {
+                            boardList.map(function (board, idx) {
+                                console.log(board, idx);
+                                return (
+                                    <TableRow obj={board} key={idx} cnt={idx + 1}/>
+                                )
+                            })
+                        }
+                    </div>
+                    :
+                    null
+
+            }
         </div>
     )
 }
 
+/* 글 목록 테이블 행 컴포넌트 */
+function TableRow(props) {
+    const board = props.obj;
+
+    return (
+        <ul className={"text-big"}>
+            {
+                (board.del === 0) ?
+                    // 삭제되지 않은 게시글
+                    <>
+                    <Link className={"table"} to={{pathname: `/board/detail/${board.seq}`}}> { /* 게시글 상세 링크 */}
+                        <li>작성자: {board.id}</li>
+                        <li>제목: {board.title}</li>
+                        <li>추천도: {board.blike}</li>
+                    </Link>
+
+                    </>
+                    :
+                    // 삭제된 게시글
+                    <>
+                        <div className={"text-delete"}>
+                            <p className={"text-middle"}>⚠️ 이 글은 작성자에 의해 삭제됐습니다.</p>
+                        </div>
+                    </>
+            }
+        </ul>
+    );
+}
 export default CardDetail;

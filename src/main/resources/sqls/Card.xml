@@ -110,5 +110,12 @@
 		where id=#{id} and filepath=#{filePath}
 	</delete>
 
+<!-- 커스텀 카드가 들어간 게시판 글 출력 -->
+	<select id="getBoardToCustomCard" parameterType="String" resultType="twk.cardselecter.board.entity.Board">
+		SELECT b.seq, b.id, ref, step, depth, title, content, created_at createdAt, del, read_count readCount, b_like bLike
+		From board b join custom_card_to_board cctb on b.seq = cctb.seq join custom_card cc on cctb.filepath = cc.filepath
+		where cc.no=#{no}
+	</select>
+
 
 </mapper>

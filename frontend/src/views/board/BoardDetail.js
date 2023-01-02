@@ -12,7 +12,7 @@ function BoardDetail() {
     const {seq} = useParams();
     const navigate = useNavigate();
     const [board, setBoard] = useState({});
-    const [filePath, setFilePath] = useState("");
+    const [customCard, setCustomCard] = useState({});
 
     const getBoardDetail = async () => {
         try {
@@ -20,7 +20,7 @@ function BoardDetail() {
                 params: {id: user.id ? user.id : ""}
             });
             setBoard(resp.data.board);
-            setFilePath(resp.data.filePath);
+            setCustomCard(resp.data.customCard);
         } catch (err) {
             alert("게시글 정보를 읽어오는데 문제가 생겼습니다. msg:" + err)
         }
@@ -52,7 +52,6 @@ function BoardDetail() {
             alert("게시글에 좋아요를 누르는데 문제가 생겼습니다. \n원인: " + err.response.data)
         }
     }
-
     useEffect(() => {
         getBoardDetail();
     }, [])
@@ -68,7 +67,7 @@ function BoardDetail() {
         id: board.id,
         title: board.title
     }
-    const path = "http://localhost:8818/upload/" + filePath + ".png";
+    const path = "http://localhost:8818/upload/" + customCard.filePath + ".png";
     return (
         <div id={"board-detail-wrap"}>
             <img src="/images/banner.jpg" alt=""/>
@@ -83,15 +82,19 @@ function BoardDetail() {
                     <li>추천수 <span>{board.blike}</span></li>
                 </ul>
                 {
-                    filePath !== "" ?
-                        <ul>
+                    customCard.filePath !== "" ?
+                        <ul className={"show-menu"}>
                             <img src={path} alt=""/>
+                            <Link to={`/card/detail/${customCard.no}`}>
+                                <p className={"text-middle"}>{user.id}님이 만들어낸 {customCard.name}의 변신</p>
+                                <p><br/>카드 보러 가기</p>
+                            </Link>
                         </ul>
                         :
                         null
                 }
                 <ul className={"table-contents text-middle"}>
-                    <div className={"html-parse"} dangerouslySetInnerHTML={ {__html: board.content} }>
+                    <div className={"html-parse"} dangerouslySetInnerHTML={{__html: board.content}}>
                     </div>
                 </ul>
                 <ul className={"table-buttons text-big"}>
@@ -144,7 +147,7 @@ function BoardDetail() {
                     null
             }
 
-            <CommentList  seq={seq}/>
+            <CommentList seq={seq}/>
         </div>
     )
 }

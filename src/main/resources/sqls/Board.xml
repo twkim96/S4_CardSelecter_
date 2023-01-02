@@ -140,9 +140,9 @@
 
 	<!-- 커스텀카드 게시글 연관 테이블 생성 -->
 	<insert id="createCustomCardToBoard" parameterType="twk.cardselecter.board.entity.CustomCardToBoard">
-		INSERT INTO custom_card_to_board(no, seq, filepath)
-		VALUES (#{no}, #{seq}, #{filepath})
-		on duplicate key update no=#{no}, seq=#{seq}, filepath=#{filepath}
+		INSERT INTO custom_card_to_board(seq, filepath)
+		VALUES (#{seq}, #{filePath})
+		on duplicate key update seq=#{seq}, filepath=#{filePath}
 	</insert>
 
 	<!-- 커스텀 카드 삭제 -->
@@ -156,6 +156,12 @@
 		select filepath
 		from custom_card_to_board
 		where seq=#{seq}
+	</select>
+	<!--	filePath 기반으로 커스텀 카드 찾기 -->
+	<select id="findCustomCardNo" parameterType="String" resultType="twk.cardselecter.card.entity.CustomCard">
+		select id, no, name, filepath
+		from card.custom_card
+		where filepath = #{filePath}
 	</select>
 </mapper>
 

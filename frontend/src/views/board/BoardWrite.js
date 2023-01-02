@@ -28,8 +28,7 @@ function BoardWrite() {
             id: user.id,
             title: title,
             content: content,
-            no: selectCard.customCard,
-            filePath: selectCard.customPath
+            filePath: selectCard.customCard,
         }
         console.log(req)
         try {

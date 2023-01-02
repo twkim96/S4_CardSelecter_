@@ -17,6 +17,8 @@ import twk.cardselecter.board.entity.Board;
 import twk.cardselecter.board.entity.BoardHistory;
 import twk.cardselecter.board.entity.BoardLike;
 import twk.cardselecter.board.entity.CustomCardToBoard;
+import twk.cardselecter.card.entity.CustomCard;
+import twk.cardselecter.card.respository.CardRepository;
 import twk.cardselecter.exception.DupKeyException;
 import twk.cardselecter.board.repository.BoardRepository;
 
@@ -57,8 +59,11 @@ public class BoardService {
             }
         }
         /*updateResult 사용해서 예외처리*/
+        /*아래 두개 합치기*/
         String customCardToBoard = boardRepository.getCustomCardToBoard(seq);
-        return new BoardPostResponse(boardRepository.getBoard(seq), customCardToBoard);
+        System.out.println(customCardToBoard + "lol");
+        CustomCard customCard = boardRepository.findCustomCardNo(customCardToBoard);
+        return new BoardPostResponse(boardRepository.getBoard(seq), customCard);
     }
 
     /**
@@ -67,16 +72,16 @@ public class BoardService {
     public BoardCreateResponse createBoard(BoardCreateRequest req){
         Board board = req.toEntity();
         Integer result = boardRepository.createBoard(board);
-        createCustomCardToBoard(req.getNo(), req.getFilePath() ,board.getSeq());
+        createCustomCardToBoard(req.getFilePath() ,board.getSeq());
         return new BoardCreateResponse(board.getSeq());
     }
 
-    private void createCustomCardToBoard(String no, String filePath, Integer seq) {
-        if(no == null)
+    private void createCustomCardToBoard(String filePath, Integer seq) {
+        if(filePath == null)
             return;
         try {
             CustomCardToBoard customCard = CustomCardToBoard.builder()
-                    .no(no).seq(seq).filePath(filePath).build();
+                    .seq(seq).filePath(filePath).build();
             Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
         } catch (RuntimeException e){
             e.printStackTrace();
@@ -90,7 +95,7 @@ public class BoardService {
         }
         try {
             CustomCardToBoard customCard = CustomCardToBoard.builder()
-                    .no(no).seq(seq).build();
+                    .seq(seq).build();
             Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
         } catch (RuntimeException e){
             e.printStackTrace();
@@ -109,7 +114,7 @@ public class BoardService {
             Integer updateStepResult = boardRepository.updateBoardStep(boardStep);
         }
         Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
-        updateCustomCardToBoard(req.getNo(), boardAnswer.getSeq());
+        updateCustomCardToBoard(req.getFilePath(), boardAnswer.getSeq());
         return new BoardCreateResponse(boardAnswer.getSeq());
     }
 
@@ -140,7 +145,7 @@ public class BoardService {
         Board board = Board.builder().seq(seq).id(req.getId())
                 .content(req.getContent()).title(req.getTitle()).build();
         Integer updateResult = boardRepository.updateBoard(board);
-        createCustomCardToBoard(req.getNo(),req.getFilePath(), seq);
+        createCustomCardToBoard(req.getFilePath(), seq);
         return new BoardUpdateResponse(updateResult);
     }
 

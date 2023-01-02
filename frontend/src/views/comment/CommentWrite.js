@@ -24,7 +24,7 @@ function CommentWrite(props) {
         if (content === "") {
             return null
         }
-        const url = (pSeq === null) ?
+        const url = (pSeq === undefined) ?
             `http://localhost:8818/comment` : `http://localhost:8818/comment/${pSeq}/answer`;
         const req = {
             id: id,
@@ -51,7 +51,7 @@ function CommentWrite(props) {
             emoticon: emo,
             boardSeq: seq
         }
-        const url = (pSeq === null) ?
+        const url = (pSeq === undefined) ?
             `http://localhost:8818/comment` : `http://localhost:8818/comment/${pSeq}/answer`;
         try {
             const resp = await axios.post(url, req, {
