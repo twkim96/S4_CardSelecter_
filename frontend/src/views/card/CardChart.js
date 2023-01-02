@@ -51,13 +51,14 @@ function CardChart() {
                     </div>
                     <div className="zero">
                         <h1>카셀차트 TOP {page * 10 - 9} ~ {page * 10}</h1>
+                        <span className={"text-middle"}> 총 {totalCnt}개</span>
                     </div>
                     <ul className="box">
                         <li className={"first-li"}>
                             {
                                 cardList.map(function (card, idx) {
                                     return (
-                                        <List obj={card} key={idx} cnt={idx + 1} item={data.itemCount}/>
+                                        <List obj={card} key={idx} cnt={idx + 1} item={page}/>
                                     )
                                 })
                             }
@@ -92,6 +93,7 @@ function List(props) {
         <div>
             <Link to={{pathname: `/card/detail/${card.no}`}}>
                 <ul className="fl-box">
+                    <li className={"text-big"}>{props.cnt+(props.item-1)*10}</li>
                     <li className={"img-wrap"}><img src={path} alt="" className={"card-img"}/></li>
                     <li>
                         <div className="row-box">

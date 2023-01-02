@@ -56,7 +56,9 @@ function BoardWrite() {
             <ul>
                 <CKEditor
                     editor={ClassicEditor}
-                    data="<p>마음껏 질문해주세요!!</p>"
+                    config={{
+                        placeholder: "<p>마음껏 질문해주세요!!</p>",
+                    }}
                     onReady={editor => {
                         // console.log('Editor is ready to use!', editor);
                     }}

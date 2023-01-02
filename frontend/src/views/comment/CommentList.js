@@ -3,6 +3,7 @@ import axios from "axios";
 import Pagination from "react-js-pagination";
 import Comment from "./Comment";
 import {useDispatch, useSelector} from "react-redux";
+import CommentAnswer from "./CommentAnswer";
 
 function CommentList(props){
 
@@ -50,14 +51,15 @@ function CommentList(props){
                     return (
                         <div key={idx}>
                             <Comment obj={comment} key={idx} />
+                            <CommentAnswer obj={comment} key={idx}/>
                         </div>
                     );
                 })
             }
-
         </div>
 
     );
 }
+
 
 export default CommentList;

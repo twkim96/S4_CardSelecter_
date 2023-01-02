@@ -21,6 +21,8 @@ import twk.cardselecter.card.respository.CardRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -68,8 +70,10 @@ public class CardService {
     public CardCustomResultResponse createCustomCard(MultipartFile file, CardCustomCreateRequest req){
         try {
             String fileName = uploadFile(file);
+            System.out.println(fileName + "11");
             CustomCard customCard = req.toEntity(fileName);
             Integer customCardResult = repository.createCustomCard(customCard);
+            System.out.println(customCardResult + "22");
             return new CardCustomResultResponse(customCardResult);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -106,15 +110,17 @@ public class CardService {
      */
     private String uploadFile(MultipartFile file) throws IOException {
         String filename = file.getOriginalFilename();
+        System.out.println(filename + "333");
         if(filename != null) {
             String fileExtension = filename.substring(filename.lastIndexOf("."));
-            String uploadFolder = "/Users/twkim/Documents/server";
+            String uploadFolder = "/Users/twkim/Documents/server/";
             UUID uuid = UUID.randomUUID();
             String[] uuids = uuid.toString().split("-");
             String uniqueName = uuids[0];
-            File saveFile = new File(uploadFolder+"\\"+uniqueName);
-            file.transferTo(saveFile);
-            return filename;
+            String saveFile = uploadFolder+uniqueName+".png";
+            Path savePath = Paths.get(saveFile);
+            file.transferTo(savePath);
+            return uniqueName;
         }
         throw new IOException();
     }

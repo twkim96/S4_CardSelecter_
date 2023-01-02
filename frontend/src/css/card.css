@@ -1,49 +1,58 @@
 
 #chart-view {
     position: relative;
-    background-color: #f5f5f5;
     padding-bottom: 100px;
 }
 
 #chart-view .container {
-    padding: 0 0 0 60px;
     margin: 0 auto;
-    width: 1190px;
+    width: 1130px;
 }
 
 #chart-view .container .one {
     display: flex;
     align-items: center;
-    height: 200px;
-    margin-right: 20px;
+    height: 170px;
+    margin: 0 0 20px 0;
+    border: black 3px solid;
 }
 #chart-view .container .one img {
-    margin-left: 10%;
+    margin-left: 40px;
     margin-right: 20px;
-    width: 150px;
+    max-width: 80%;
+    max-height: 80%;
 }
 
 #chart-view .container .one h1 {
-    font-size: xxx-large;
-    font-weight: bold;
-    color: darkslateblue;
+    margin-left: 30px;
+    font-size: xx-large;
+    font-family: Arial unicode MS,sans-serif;
 }
 
 #chart-view .container .one span {
-    margin-right: 10px;
+    margin-left: 30px;
     font-size: xxx-large;
     font-weight: bolder;
     color: orangered;
 }
 
 #chart-view .container .zero {
-    height: 40px;
+    display: flex;
+    height: 30px;
     font-size: x-large;
-    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: Arial unicode MS,sans-serif;
+    align-items: center;
 }
+
+#chart-view .container .zero span {
+    margin-left: 30px;
+}
+
 #chart-view .container .box {
     display: flex;
 }
+
 #chart-view .container .box > .first-li {
     width: 900px;
     height: 1700px;
@@ -68,11 +77,13 @@
 
 #chart-view .container .box .fl-box {
     position: relative;
-    height: 130px;
+    padding-bottom: 15px;
+    height: 100px;
     background-color: white;
     width: 900px;
     align-items: center;
     display: flex;
+    border-bottom: #cccccc 1px solid;
 }
 #chart-view .container .box .fl-box:first-child {
     border-radius: 20px;
@@ -90,12 +101,12 @@
 }
 
 #chart-view .container .box .fl-box .card-img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 80%;
+    max-height: 80%;
 }
 
 #chart-view .container .box .fl-box li {
-    margin-left: 40px;
+    margin-left: 30px;
 }
 
 #chart-view .container .box .fl-box .img-wrap {
@@ -110,9 +121,9 @@
 }
 
 #chart-view .container .box .fl-box .row-box h2 {
+    font-family: Arial unicode MS,sans-serif;
     font-size: x-large;
-    font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #chart-view .container .box .fl-box .row-box h3 {
@@ -128,14 +139,22 @@
 
 
 #container-wrap {
-    background-color: #f5f5f5;
+    width: 1130px;
+    margin: 0 auto;
 }
 
-#container-wrap .container {
-    padding: 0 0 0 60px;
+#container-wrap .container .banner {
     margin: 0 auto;
-    width: 1196px;
+    text-align: center;
+    width: 700px;
+    height: 115px;
+    padding: 50px 0 60px 0;
+    border: 3px black solid;
 }
+#container-wrap .container .banner > div{
+
+}
+
 #container-wrap .container .img {
     margin: 30px auto 0 auto;
     width: 300px;
@@ -187,5 +206,33 @@
 #container-wrap .container .row .data-box pre{
     white-space: pre-line;
 }
+#container-wrap .upload-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+#container-wrap label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
 
-
+#container-wrap input[type="file"] {  /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}

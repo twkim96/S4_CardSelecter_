@@ -2,13 +2,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {commentRefresh} from "../../redux/user";
 
 function CommentWrite(props) {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user.value)
     const id = user.id
     const seq = props.seq;
+    const pSeq = props.pseq;
 
     const navigate = useNavigate();
 
@@ -24,6 +24,8 @@ function CommentWrite(props) {
         if (content === "") {
             return null
         }
+        const url = (pSeq === null) ?
+            `http://localhost:8818/comment` : `http://localhost:8818/comment/${pSeq}/answer`;
         const req = {
             id: id,
             emoticon: 0,
@@ -31,7 +33,7 @@ function CommentWrite(props) {
             boardSeq: seq
         }
         try {
-            const resp = await axios.post(`http://localhost:8818/comment`, req, {
+            const resp = await axios.post(url, req, {
                 params: {"boardSeq": seq},
                 headers: user.jwt
             })
@@ -49,8 +51,10 @@ function CommentWrite(props) {
             emoticon: emo,
             boardSeq: seq
         }
+        const url = (pSeq === null) ?
+            `http://localhost:8818/comment` : `http://localhost:8818/comment/${pSeq}/answer`;
         try {
-            const resp = await axios.post(`http://localhost:8818/comment`, req, {
+            const resp = await axios.post(url, req, {
                 params: {"boardSeq": seq},
                 headers: user.jwt
             })

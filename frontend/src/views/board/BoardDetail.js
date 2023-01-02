@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 import CommentList from "../comment/CommentList";
 import CommentWrite from "../comment/CommentWrite";
 
+
 function BoardDetail() {
     const user = useSelector((state) => state.user.value)
     const {seq} = useParams();
@@ -66,7 +67,7 @@ function BoardDetail() {
         id: board.id,
         title: board.title
     }
-
+    let codes = "<b>Will This Work?</b>";
     return (
         <div id={"board-detail-wrap"}>
             <img src="/images/banner.jpg" alt=""/>
@@ -81,8 +82,7 @@ function BoardDetail() {
                     <li>추천수 <span>{board.blike}</span></li>
                 </ul>
                 <ul className={"table-contents text-middle"}>
-                    <div>
-                        {parse(`${board.content}`)}
+                    <div className={"html-parse"} dangerouslySetInnerHTML={ {__html: board.content} }>
                     </div>
                 </ul>
                 <ul className={"table-buttons text-big"}>

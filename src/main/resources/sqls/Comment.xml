@@ -12,7 +12,7 @@
 		FROM
 					(SELECT row_number() OVER(ORDER BY ref DESC, step) AS rnum,
 					seq, id, ref, step, depth, content, created_at, del, board_seq, emoticon
-					FROM comment1
+					FROM comment
 					WHERE board_seq = #{boardSeq}) a
 		WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
 	</select>
@@ -20,49 +20,49 @@
 	<!-- 댓글 총 개수 조회 -->
 	<select id="getCommentCount" parameterType="Integer" resultType="Integer">
 		SELECT ifnull(count(*), 0)
-		FROM comment1
+		FROM comment
 		WHERE board_seq = #{seq}
 	</select>
 
 	<!-- 댓글 작성 -->
 	<insert id="createComment" parameterType="twk.cardselecter.comment.entity.Comment"
 					useGeneratedKeys="true" keyProperty="seq">
-		INSERT into comment1 (id, ref, step, depth, content, created_at, del, board_seq, emoticon)
-		VALUES (#{id}, (SELECT ifnull(max(ref), 0)+1 from comment1 b), 0, 0, #{content}, NOW(), 0, #{boardSeq}, #{emoticon})
+		INSERT into comment (id, ref, step, depth, content, created_at, del, board_seq, emoticon)
+		VALUES (#{id}, (SELECT ifnull(max(ref), 0)+1 from comment b), 0, 0, #{content}, NOW(), 0, #{boardSeq}, #{emoticon})
 	</insert>
 
 	<!-- 답 댓글 작성 -->
 	<!-- 답댓글 위치 결정(아래에 추가, 가운데에 넣기)	-->
 	<select id="updateCommentCheck" parameterType="Integer" resultType="Integer">
 		select ifnull(min(step), 0)
-		from comment1
-		where ref = (select ref from comment1 a where seq = #{parentSeq})
-	  	and step > (select step from comment1 b where seq = #{parentSeq})
-		and (select depth from comment1 c where seq = ${parentSeq}) >= depth
+		from comment
+		where ref = (select ref from comment a where seq = #{parentSeq})
+	  	and step > (select step from comment b where seq = #{parentSeq})
+		and (select depth from comment c where seq = ${parentSeq}) >= depth
 	</select>
 
 	<!-- 부모 댓글 step 업데이트 -->
 	<update id="updateCommentStep" parameterType="twk.cardselecter.comment.dto.param.CommentStep">
-		update comment1
+		update comment
 		set step = step + 1
-		where ref = (select ref from (select ref from comment1 a where seq=#{parentSeq}) A)
+		where ref = (select ref from (select ref from comment a where seq=#{parentSeq}) A)
 		and step >= #{checkResult};
 	</update>
 
 	<!-- 새로운 답댓글 추가 -->
 	<insert id="createCommentAnswer" parameterType="twk.cardselecter.comment.dto.param.CommentAnswer"
 					useGeneratedKeys="true" keyProperty="seq">
-		INSERT comment1 (id, ref, step, depth, content, created_at, del, board_seq, emoticon)
+		INSERT comment (id, ref, step, depth, content, created_at, del, board_seq, emoticon)
 			<if test="checkResult == 0">
-				values (#{id}, (SELECT ref FROM comment1 a WHERE seq=#{parentSeq}),
-				       (select ifnull(max(step), 0) + 1 from comment1 b where ref=(select ref FROM board c WHERE seq=#{parentSeq})),
-						(SELECT depth FROM comment1 d WHERE seq=#{parentSeq}) + 1,
+				values (#{id}, (SELECT ref FROM comment a WHERE seq=#{parentSeq}),
+				       (select ifnull(max(step), 0) + 1 from comment b where ref=(select ref FROM board c WHERE seq=#{parentSeq})),
+						(SELECT depth FROM comment d WHERE seq=#{parentSeq}) + 1,
 						#{content}, NOW(), 0, #{boardSeq}, #{emoticon});
 			</if>
 			<if test="checkResult > 0">
-				VALUES (#{id}, (SELECT ref FROM comment1 e WHERE seq=#{parentSeq}),
+				VALUES (#{id}, (SELECT ref FROM comment e WHERE seq=#{parentSeq}),
 				#{checkResult},
-				(SELECT depth FROM comment1 f WHERE seq=#{parentSeq}) + 1,
+				(SELECT depth FROM comment f WHERE seq=#{parentSeq}) + 1,
 				#{content}, NOW(), 0, #{boardSeq}, #{emoticon});
 			</if>
 	</insert>
@@ -71,21 +71,21 @@
 	<select id="getCommentBySeq" parameterType="Integer"
 			resultType="twk.cardselecter.comment.entity.Comment">
 		SELECT id, ref, step, depth, content, created_at createAt, del, board_seq boardSeq, emoticon
-		FROM comment1
+		FROM comment
 		WHERE seq=#{seq}
 	</select>
 
 	<!-- 댓글 수정 -->
 	<!-- 수정 성공 시 1(수정한 레코드 개수) 을 반환, 실패 시 0 을 반환 -->
 	<update id="updateComment" parameterType="twk.cardselecter.comment.entity.Comment">
-		UPDATE comment1
+		UPDATE comment
 		SET content=#{content}
 		WHERE seq=#{seq}
 	</update>
 
 	<!--	댓글 삭제 -->
 	<update id="deleteComment" parameterType="Integer">
-		UPDATE comment1
+		UPDATE comment
 		SET del = 1
 		WHERE seq=#{seq}
 	</update>

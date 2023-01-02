@@ -14,7 +14,7 @@
 		(
 			select row_number() over (order by ${choice}) as rnum,
 			       a.no, name, company, info, kind, inter
-			from card1 a
+			from card a
 			left join card_score b on a.no = b.no
 		) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
@@ -24,8 +24,8 @@
 			(
 				select row_number() over (order by name) as rnum,
 				a.no, name, company, info, kind, inter
-				from card1 a
-				left join card_benefit1 b on a.no = b.no
+				from card a
+				left join card_benefit b on a.no = b.no
 				where b.benefit = #{choice}
 			) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
@@ -35,7 +35,7 @@
 			(
 			select row_number() over (order by name) as rnum,
 			a.no, name, company, info, kind, inter
-			from card1 a
+			from card a
 			where a.company = #{choice}
 			) c
 			WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
@@ -45,24 +45,28 @@
 <!--카드 리스트 page 에 쓰일 전체 갯수 출력-->
 	<select id="getCardCount" parameterType="twk.cardselecter.card.dto.param.CardListParam" resultType="Integer">
 		SELECT ifnull(count(*), 0)
-		FROM card1 a
+		FROM card a
 		<if test="orderBy == 1">
-			left join card_benefit1 c on a.no = c.no
+			left join card_benefit c on a.no = c.no
 			where c.benefit = #{choice}
+		</if>
+		<if test="orderBy == 2">
+			left join card_benefit c on a.no = c.no
+			where a.company = #{choice}
 		</if>
 	</select>
 
 <!--카드 클릭 페이지 1: 카드 정보-->
 	<select id="getCard" parameterType="String" resultType="twk.cardselecter.card.entity.Card">
 		SELECT no, name, company, info, kind, inter
-		FROM card1
+		FROM card
 		WHERE no = #{no}
 	</select>
 
 <!--카드 클릭 페이지 2: 카드 혜택 정보-->
 	<select id="getCardBenefit" parameterType="String" resultType="twk.cardselecter.card.entity.CardBenefit">
 		SELECT no, benefit, amount
-		FROM card_benefit1
+		FROM card_benefit
 		WHERE no = #{no}
 	</select>
 

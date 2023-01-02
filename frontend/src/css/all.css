@@ -49,7 +49,9 @@
 .text-impact{
     font-weight: 600;
 }
-
+.empty-area{
+    min-height: 50px
+}
 
 
 

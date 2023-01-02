@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import CommentWrite from "./CommentWrite";
 
 function Comment(props) {
     const user = useSelector((state) => state.user.value)
@@ -42,6 +43,7 @@ function Comment(props) {
         }
     }
 
+
     function updateToggle() {
         setShow(show => !show)
     }
@@ -51,46 +53,52 @@ function Comment(props) {
         const fPath = `/images/${comment.emoticon}.png`;
         return (
             <div id={"comment-wrap"}>
-                <ul className={"comment-table"}>
-                    <li className={"text-impact"}>{comment.id}</li>
-                    <li>{comment.createAt}</li>
+                <div>
+                    <ul className={"comment-table"}>
+                        <Arrow depth={comment.depth} nope={false}></Arrow>
+                        <li className={"text-impact"}>{comment.id}</li>
+                        <li>{comment.createAt}</li>
+                        {
+                            /* 자신이 작성한 댓글인 경우에만 수정 삭제 가능 */
+                            (user.id === comment.id) ?
+                                <>
+                                    <ul className={"buttons"}>
+                                        <li className="button-zero" onClick={updateToggle}>수정</li>
+                                        <li className="button-zero" onClick={deleteComment}>삭제</li>
+                                    </ul>
+                                </>
+                                :
+                                null
+                        }
+                    </ul>
                     {
-                        /* 자신이 작성한 댓글인 경우에만 수정 삭제 가능 */
-                        (user.id === comment.id) ?
-                            <>
-                                <li className="button-zero" onClick={updateToggle}>수정</li>
-                                <li className="button-zero" onClick={deleteComment}>삭제</li>
-                            </>
+                        /* 댓글 수정하는 경우 */
+                        show ?
+                            <ul className={"comment-table"}>
+                                <li>
+                                    {/* 하단 영역 (댓글 내용 + 댓글 내용 편집 창) */}
+                                    <textarea className={"text-middle"} rows="5" value={content}
+                                              onChange={changeContent}></textarea>
+                                </li>
+                                <li className="button-zero" onClick={updateComment}> 수정 완료</li>
+                            </ul>
                             :
-                            null
+                            <ul className={"comment-table1"}>
+                                <li>
+                                    <Arrow depth={comment.depth} nope={true}></Arrow>
+                                    {
+                                        (comment.emoticon === 0) ?
+                                            <div className="">
+                                                <div className="">{content}</div>
+                                            </div> :
+                                            <div className="emo-wrap">
+                                                <img src={fPath} alt="이미지가 없어요"/>
+                                            </div>
+                                    }
+                                </li>
+                            </ul>
                     }
-                </ul>
-                {
-                    /* 댓글 수정하는 경우 */
-                    show ?
-                        <ul className={"comment-table"}>
-                            <li>
-                                {/* 하단 영역 (댓글 내용 + 댓글 내용 편집 창) */}
-                                <textarea className={"text-middle"} rows="5" value={content}
-                                          onChange={changeContent}></textarea>
-                            </li>
-                            <li className="button-zero" onClick={updateComment}> 수정 완료</li>
-                        </ul>
-                        :
-                        <ul className={"comment-table"}>
-                            <li>
-                                {
-                                    (comment.emoticon === 0) ?
-                                <div className="">
-                                    <div className="">{content}</div>
-                                </div> :
-                                <div className="emo-wrap">
-                                    <img src={fPath} alt="이미지가 없어요"/>
-                                </div>
-                                }
-                            </li>
-                        </ul>
-                }
+                </div>
             </div>
         );
     }
@@ -107,6 +115,38 @@ function Comment(props) {
             </div>
         );
     }
+}
+
+const tap = "\u00A0\u00A0\u00A0\u00A0";
+
+function Arrow(props) {
+    const depth = props.depth;
+    const nope = props.nope;
+    if (depth === 0) {
+        return null;
+    }
+
+    const taps = [];
+    if(!nope) {
+        for (let i = 0; i < depth; i++) {
+            taps.push(tap);
+        }
+    } else {
+        for (let i = 0; i < depth-1; i++) {
+            taps.push(tap);
+        }
+    }
+    return (
+        <>
+            {taps}
+            {!nope ?
+                <img src="/images/letter-l.png" alt=""/>
+                :
+                null
+            }
+
+        </>
+    );
 }
 
 export default Comment;
