@@ -40,11 +40,15 @@
 .button-zero{
     border: 0;
     outline: 0;
-    background-color: #f5f5f5;
     cursor: pointer
 }
-
-
+.text-delete{
+    color: red;
+    margin-top: 10px;
+}
+.text-impact{
+    font-weight: 600;
+}
 
 
 

@@ -7,6 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LoginResponse {
     String id;
-    String name;
     String jwt;
 }

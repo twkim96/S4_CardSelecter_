@@ -8,5 +8,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class CommentPostResponse {
-    private Integer updateResult;
+    private Integer result;
 }

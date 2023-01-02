@@ -2,6 +2,9 @@ import {useSelector} from "react-redux";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import parse from 'html-react-parser';
+import CommentList from "../comment/CommentList";
+import CommentWrite from "../comment/CommentWrite";
 
 function BoardDetail() {
     const user = useSelector((state) => state.user.value)
@@ -32,79 +35,107 @@ function BoardDetail() {
         }
     }
 
+    const likeBoard = async () => {
+        try {
+            const req = {
+                id: user.id
+            }
+            console.log(user.id);
+            const resp = await axios.patch(
+                `http://localhost:8818/board/${seq}/like`, req);
+            if (resp.data.result === 1) {
+                getBoardDetail();
+            }
+        } catch (err) {
+            alert("게시글에 좋아요를 누르는데 문제가 생겼습니다. \n원인: " + err.response.data)
+        }
+    }
+
     useEffect(() => {
         getBoardDetail();
     }, [])
 
+    const updateBoard = {
+        seq: board.seq,
+        id: board.id,
+        title: board.title,
+        content: board.content
+    }
+
+    const parentBoard = {
+        id: board.id,
+        title: board.title
+    }
+
     return (
-
-        <div className={"Bbs-wrap"}>
-
-            <div className="my-3 d-flex justify-content-end">
-                <Link className="btn btn-outline-secondary" to={{pathname: `/board/answer/${board.seq}`}}
-                      state={{parentBbs: board}}><i className="fas fa-pen"></i> 답글쓰기</Link> &nbsp;
-
-                {
-                    /* 자신이 작성한 게시글인 경우에만 수정 삭제 가능 */
-                    (localStorage.getItem("id") === board.id) ?
-                        <>
-                            <Link className="btn btn-outline-secondary" to="/bbsupdate" state={{bbs: board}}><i
-                                className="fas fa-edit"></i> 수정</Link> &nbsp;
-                            <button className="btn btn-outline-danger" onClick={deleteBoard}><i
-                                className="fas fa-trash-alt"></i> 삭제
-                            </button>
-                        </>
-                        :
-                        null
-                }
+        <div id={"board-detail-wrap"}>
+            <img src="/images/banner.jpg" alt=""/>
+            <div className="table">
+                <ul className={"table-flex table-flex-big text-big"}>
+                    <li>{board.title}</li>
+                    <li>{board.createAt}</li>
+                </ul>
+                <ul className={"table-flex table-flex-medium text-middle"}>
+                    <li className={"text-big"}>{board.id}</li>
+                    <li>조회수 <span>{board.readCount}</span></li>
+                    <li>추천수 <span>{board.blike}</span></li>
+                </ul>
+                <ul className={"table-contents text-middle"}>
+                    <div>
+                        {parse(`${board.content}`)}
+                    </div>
+                </ul>
+                <ul className={"table-buttons text-big"}>
+                    <li>
+                        <Link to="/board/list">
+                            글목록
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/board/answer/${board.seq}`}
+                              state={{parentBoard: parentBoard}}>
+                            <div className={"button-zero"}>답글</div>
+                        </Link>
+                    </li>
+                    {
+                        (user.id) ?
+                            <div className={"text-big board-like"} onClick={likeBoard}>
+                                <img src="/images/like.png" alt=""/>
+                                <p>{board.blike}</p>
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        /* 자신이 작성한 게시글인 경우에만 수정 삭제 가능 */
+                        (user.id === board.id) ?
+                            <>
+                                <li>
+                                    <Link to="/board/update"
+                                          state={{board: updateBoard}}>
+                                        <div className={"button-zero"}>수정</div>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <div className="button-zero" onClick={deleteBoard}>
+                                        삭제
+                                    </div>
+                                </li>
+                            </>
+                            :
+                            null
+                    }
+                </ul>
 
             </div>
+            {
+                (user.id) ? // 로그인한 사용자만 댓글 작성 가능
+                    <CommentWrite seq={seq}/>
+                    :
+                    null
+            }
 
-            <table className="table table-striped">
-                <tbody>
-                <tr>
-                    <th className="col-3">작성자</th>
-                    <td>
-                        <span>{board.id}</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>제목</th>
-                    <td>
-                        <span>{board.title}</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>작성일</th>
-                    <td>
-                        <span>{board.createdAt}</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>조회수</th>
-                    <td>
-                        <span>{board.readCount}</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>내용</th>
-                    <td>
-                        <div>
-                            {board.content}
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div className="my-3 d-flex justify-content-center">
-                <Link className="btn btn-outline-secondary" to="/bbslist"><i className="fas fa-list"></i> 글목록</Link>
-            </div>
-            <br/><br/>
+            <CommentList  seq={seq}/>
         </div>
     )
 }

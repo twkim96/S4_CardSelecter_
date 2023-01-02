@@ -52,11 +52,10 @@ public class CommentController {
     /**
      * 댓글 수정
      */
-    @PatchMapping
+    @PatchMapping("/{seq}")
     public ResponseEntity<CommentPostResponse> updateComment(
-            @AuthenticationPrincipal UserDetails userDetails,
-            @RequestBody CommentPostRequest req){
-        CommentPostResponse commentUpdate = service.updateComment(userDetails.getUsername(), req);
+            @RequestBody CommentPostRequest req, @PathVariable Integer seq){
+        CommentPostResponse commentUpdate = service.updateComment(req, seq);
         log.info("updateComment {}", commentUpdate);
         return ResponseEntity.ok(commentUpdate);
     }

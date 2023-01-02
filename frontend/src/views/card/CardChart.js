@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router";
 import axios from "axios";
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate, useLocation} from "react-router-dom";
 import "../../css/card.css"
 import Pagination from "react-js-pagination";
 

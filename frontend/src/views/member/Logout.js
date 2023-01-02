@@ -14,7 +14,7 @@ function Logout() {
         localStorage.removeItem("id");
         localStorage.removeItem("name");
 
-        alert(user.name + "님, 성공적으로 로그아웃 됐습니다 🔒");
+        alert(user.id + "님, 성공적으로 로그아웃 됐습니다 🔒");
         dispatch(logout());
         navigate(-1);
     };

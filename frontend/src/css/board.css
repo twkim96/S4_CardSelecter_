@@ -49,6 +49,7 @@
     width: 200px;
 }
 
+
 #board-list-wrap .table-title{
     border-top: #bbbbbb 1px solid;
     border-bottom: #bbbbbb 1px solid;
@@ -90,6 +91,209 @@
 
 #board-list-wrap .search-wrap .button-wrapper{
     position: absolute;
+    height: 40px;
+    right: 50px;
+}
+#board-detail-wrap{
+    position: relative;
+    margin: 0 auto 100px auto;
+    width: 1130px;
+}
+#board-detail-wrap .table .table-flex {
+    height: 44px;
+    display: flex;
+    align-items: center;
+}
+#board-detail-wrap .table .table-flex-big{
+    background-color: #fdfcfc;
+    margin-top: 28px;
+    border-top: #cccccc 1px solid;
+    border-bottom: #cccccc 1px solid;
+}
+#board-detail-wrap .table .table-flex-medium{
+    border-bottom: #eeeeee 1px solid;
+}
+#board-detail-wrap .table .table-flex li:first-child{
+    margin-left: 30px;
+}
+#board-detail-wrap .table .table-flex-big li:nth-child(2){
+    position: absolute;
+    right: 30px;
+}
+#board-detail-wrap .table .table-flex-medium li:nth-child(2){
+    position: absolute;
+    right: 110px;
+}
+#board-detail-wrap .table .table-flex-medium li:nth-child(3){
+    position: absolute;
+    right: 30px;
+}
+#board-detail-wrap .table .table-contents {
+    margin-top: 20px;
+    min-height: 300px;
+    border-bottom: #cccccc 1px solid;
+}
+
+#board-detail-wrap .table .table-contents div{
+    margin-left: 20px;
+}
+
+#board-detail-wrap .table .table-buttons {
+    position: relative;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 80px;
+    border-bottom: #cccccc 1px solid;
+}
+#board-detail-wrap .table .table-buttons li{
+    width: 40px;
+    height: 25px;
+    margin-right: 10px;
+}
+#board-detail-wrap .table .table-buttons li:first-child{
+    position: absolute;
+    width: 80px;
+    left: 20px;
+}
+#board-detail-wrap .table .board-like{
+    position: absolute;
+    left: 500px;
+    bottom: -1px;
+    width: 70px;
+    height: 70px;
+    border: #bbbbbb solid 2px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer
+}
+#board-detail-wrap .table .board-like img{
+    margin-top: 7px;
+}
+#board-detail-wrap .table .board-like p:last-child{
+    color: blue;
+}
+#board-write-wrap{
+    width: 1130px;
+    margin: 0 auto;
+}
+#board-write-wrap .table{
+    display: flex;
+    margin-top: 10px;
+}
+#board-write-wrap .table input{
+    width: 500px;
     height: 28px;
-    right: 20px;
+    font-size: 18px;
+}
+#board-write-wrap .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 500px;
+}
+#board-write-wrap .button-submit{
+    border: black solid 2px;
+    padding-top: 2px;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    width: 60px;
+    height: 30px;
+}
+
+#board-write-wrap .text-box{
+    margin: 20px auto;
+    text-align: center;
+    padding: 30px;
+    border: black solid 3px;
+    width: 700px;
+}
+
+#comment-wrap{
+    position: relative;
+    width: 1130px;
+    height: 100px;
+    border-bottom: #eeeeee 1px solid;
+}
+
+#comment-wrap .comment-table{
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+#comment-wrap .span-table{
+    height: 74px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    color: red;
+}
+#comment-wrap .comment-table .span-table{
+    height: 74px;
+}
+#comment-wrap .comment-table li {
+    font-family: Arial unicode MS, sans-serif;
+    font-size: medium;
+    margin-left: 10px;
+}
+#comment-wrap .comment-table:first-child li:nth-child(4) {
+    position: absolute;
+    right: 10px;
+}
+#comment-wrap .comment-table:first-child li:nth-child(3) {
+    position: absolute;
+    right: 60px;
+}
+#comment-wrap .comment-table-update {
+    display: flex;
+    height: 30px;
+}
+#comment-wrap .comment-table textarea{
+    height: 70px;
+    width: 1000px;
+    resize: none;
+}
+#comment-write-wrap{
+    width: 1130px;
+    height: 130px;
+    border-bottom: #cccccc 1px solid;
+}
+#comment-write-wrap .comment-table{
+    display: flex;
+    align-items: center;
+}
+#comment-write-wrap .comment-table > li > div:nth-child(1){
+    position: absolute;
+    right: 100px;
+    top: 10px;
+}
+#comment-write-wrap .comment-table > li > div:nth-child(2){
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+#comment-write-wrap .comment-table textarea{
+    width: 1130px;
+    height: 90px;
+    resize: none;
+}
+#comment-write-wrap .comment-table .imt-show{
+    height: 90px;
+}
+#comment-write-wrap .comment-table .imt-show img{
+    width: 90px;
+    height: 90px;
+    resize: none;
+}
+.comment-list{
+    margin-top: 10px;
+}
+.comment-list .pagination{
+    padding-bottom: 15px;
+    border-bottom: #cccccc 1px solid;
+}
+.emo-wrap{
+    position: absolute;
+    left: 250px;
+    bottom: 0;
+}
+.emo-wrap > img{
+    height: 95px;
 }

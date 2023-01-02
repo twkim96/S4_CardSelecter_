@@ -1,7 +1,7 @@
 /* 회원가입 컴포넌트 */
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom"; //이부분 오류!! -dom 필수
 
 function Join() {
 
@@ -122,7 +122,7 @@ function Join() {
                     </li>
                 </ul>
                 <ul>
-                    <li className="text-bigger">이름</li>
+                    <li className="text-bigger">닉네임</li>
                     <li>
                         <input type="text" value={name} onChange={changeName}
                                className={"inputBox-big text-big"}/>

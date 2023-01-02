@@ -105,14 +105,12 @@ public class BoardService {
         Integer checkResult = boardRepository.updateBoardCheck(parentSeq);
         BoardAnswer boardAnswer = new BoardAnswer(board, checkResult, parentSeq);
         BoardStep boardStep = new BoardStep(checkResult, parentSeq);
-        if (checkResult == 0) {
-            Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
-        } else {
+        if (checkResult != 0) {
             Integer updateStepResult = boardRepository.updateBoardStep(boardStep);
-            Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
         }
-        updateCustomCardToBoard(req.getFilePath(), board.getSeq());
-        return new BoardCreateResponse(board.getSeq());
+        Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
+        updateCustomCardToBoard(req.getFilePath(), boardAnswer.getSeq());
+        return new BoardCreateResponse(boardAnswer.getSeq());
     }
 
     /**

@@ -99,7 +99,7 @@ function BoardList() {
                         </button>
                     </div>
                     <div className="button-wrapper">
-                        <Link className="text-bigger" to="/board/write">
+                        <Link className="text-big" to="/board/write">
                             글쓰기
                         </Link>
                     </div>
@@ -130,11 +130,11 @@ function TableRow(props) {
                 (board.del === 0) ?
                     // 삭제되지 않은 게시글
                     <>
-                        <li>
+                        <li className={"text-middle"}>
                             <Arrow depth={board.depth}></Arrow> { /* 답글 화살표 */}
 
                             <Link to={{pathname: `/board/detail/${board.seq}`}}> { /* 게시글 상세 링크 */}
-                                <span className="underline bbs-title">{board.title} </span> { /* 게시글 제목 */}
+                                {board.title}
                             </Link>
                         </li>
                         <li className={"text-middle"}>{board.id}</li>
@@ -145,11 +145,9 @@ function TableRow(props) {
                     :
                     // 삭제된 게시글
                     <>
-                        <li>
-                            <Arrow depth={board.depth}></Arrow> &nbsp; { /* 답글 화살표 */}
-
-                            <span className="del-span">⚠️ 이 글은 작성자에 의해 삭제됐습니다.</span>
-                        </li>
+                    <div className={"text-delete"}>
+                        <p className={"text-middle"}>⚠️ 이 글은 작성자에 의해 삭제됐습니다.</p>
+                    </div>
                     </>
             }
         </ul>

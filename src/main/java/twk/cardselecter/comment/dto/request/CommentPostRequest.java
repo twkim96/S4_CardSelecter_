@@ -13,11 +13,13 @@ public class CommentPostRequest {
     @NotBlank(message = "내용을 입력 해주세요.")
     private String content;
     private Integer boardSeq;
+    private Integer emoticon;
     public Comment toEntity(){
         return Comment.builder()
                 .id(id)
                 .content(content)
                 .boardSeq(boardSeq)
+                .emoticon(emoticon)
                 .build();
     }
 }

@@ -2,6 +2,7 @@ package twk.cardselecter.comment;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
 import twk.cardselecter.comment.dto.param.CommentAnswer;
 import twk.cardselecter.comment.dto.param.CommentListParam;
 import twk.cardselecter.comment.dto.param.CommentStep;
@@ -28,7 +29,7 @@ public class CommentService {
      * 댓글 조회
      */
     public CommentListResponse getCommentList(CommentListRequest req){
-        int itemCount = 20;
+        int itemCount = 10;
         CommentListParam param = new CommentListParam(req.getBoardSeq());
         param.setPageParam(req.getPage(), itemCount);
         List<Comment> commentList = repository.getCommentPageList(param);
@@ -40,9 +41,7 @@ public class CommentService {
      * 댓글 작성
      */
     public CommentPostResponse createComment(CommentPostRequest req){
-        Comment comment = Comment.builder()
-                .id(req.getId()).content(req.getContent())
-                .boardSeq(req.getBoardSeq()).build();
+        Comment comment = req.toEntity();
         Integer result = repository.createComment(comment);
         if (result < 1)
             return new CommentPostResponse(0);
@@ -54,9 +53,7 @@ public class CommentService {
      */
     @Transactional
     public CommentPostResponse createCommentAnswer(Integer parentSeq, CommentPostRequest req){
-        Comment comment = Comment.builder()
-                .id(req.getId()).content(req.getContent())
-                .boardSeq(req.getBoardSeq()).build();
+        Comment comment = req.toEntity();
         Integer checkResult = repository.updateCommentCheck(parentSeq);
         CommentAnswer commentAnswer = new CommentAnswer(comment, checkResult, parentSeq);
         CommentStep commentStep = new CommentStep(checkResult, parentSeq);
@@ -72,14 +69,10 @@ public class CommentService {
     /**
      * 댓글 수정
      */
-    public CommentPostResponse updateComment(String id, CommentPostRequest req){
-        Comment commentId = repository.getCommentBySeq(req.getBoardSeq());
+    public CommentPostResponse updateComment(CommentPostRequest req, Integer seq){
         Comment comment = Comment.builder()
-                .seq(req.getBoardSeq()).id(req.getId())
+                .seq(seq).id(req.getId())
                 .content(req.getContent()).build();
-        if(!commentId.getId().equals(id)){
-            return null; //작성자만 댓글 삭제 가능
-        }
         Integer updateResult = repository.updateComment(comment);
         return new CommentPostResponse(updateResult);
     }

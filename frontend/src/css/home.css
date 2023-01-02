@@ -22,14 +22,15 @@
 
 .showBar-wrap{
     margin: 0 auto;
-    padding: 100px 0 100px 0;
-    width: 900px;
-    height: 350px;
+    padding: 100px 0 80px 0;
+    width: 950px;
+    height: 400px;
 }
 
 .showBar-wrap .contents-wrap{
-    margin: 0 auto;
     width: 900px;
+    padding: 30px;
+    border: black 3px solid;
 }
 
 

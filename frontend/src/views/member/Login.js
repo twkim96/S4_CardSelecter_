@@ -26,11 +26,14 @@ function Login(){
             const resp = await axios.post("http://localhost:8818/user/login", req)
             // const resp = await axios.all([axios.post("http://localhost:8818/user/login", req), axios.])
             console.log(resp)
-            alert(resp.data.name + "님, 성공적으로 로그인 되었습니다.");
+            alert(resp.data.id + "님, 성공적으로 로그인 되었습니다.");
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${resp.data.jwt}`;
             localStorage.setItem("bbs_access_token", resp.data.jwt);
             localStorage.setItem("id", resp.data.id);
             localStorage.setItem("name", resp.data.name);
-            dispatch(login({id: resp.data.id, name: resp.data.name, jwt: resp.data.jwt}));
+
+            dispatch(login({id: resp.data.id, name: resp.data.name,
+                jwt: {"Authorization":`Bearer ${resp.data.jwt}`}}));
         } catch (err){
             console.log(err);
             alert(err.response.data);

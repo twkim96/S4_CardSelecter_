@@ -14,7 +14,7 @@ public class JoinRequest {
     @NotBlank
     private String pwd;
     @NotBlank
-    @Pattern(regexp = "^{4,30}$")
+    @Pattern(regexp = "^.{4,30}$", message = "4글자 이상 30글자 미만이여야 합니다.")
     private String name;
     @NotBlank
     private String email;

@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from "axios";
 
 const initialStateValue = {
     id: localStorage.getItem("id"),
     name: localStorage.getItem("name"),
-    jwt: `"Authorization": Bearer ${localStorage.getItem("bbs_access_token")}`
+    jwt: {"Authorization":`Bearer ${localStorage.getItem("bbs_access_token")}`},
 }
 export const userSlice = createSlice({
     name: "user",
@@ -14,7 +15,7 @@ export const userSlice = createSlice({
         },
         logout: (state)=>{
             state.value = {id: "", pwd: "", name: ""}
-        }
+        },
     },
 });
 

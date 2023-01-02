@@ -50,7 +50,7 @@ public class MemberService {
         authenticate(req.getId(), req.getPwd());
         Member member = repository.findById(req.getId());
         System.out.println(member);
-        return new LoginResponse(member.getId(), member.getName() ,getJwtToken(req));
+        return new LoginResponse(member.getId(), getJwtToken(req));
     }
 
     /**

@@ -35,9 +35,9 @@ public class WebSecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/bbs", "/comment").authenticated()
-                .requestMatchers(HttpMethod.PATCH, "/bbs", "/comment").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/bbs", "/comment").authenticated()
+                .requestMatchers(HttpMethod.POST, "/board", "/comment").authenticated()
+                .requestMatchers(HttpMethod.PATCH, "/board", "/comment").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/board", "/comment").authenticated()
                 .anyRequest().permitAll();
 
         httpSecurity

@@ -38,3 +38,6 @@ out/
 
 ### custom ###
 *.properties
+*.png
+*.jpg
+/frontend/public/images/
