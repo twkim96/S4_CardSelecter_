@@ -31,7 +31,6 @@ function BoardList() {
         setPage(page);
         getBoardList(choiceVal, searchVal, page, itemCount);
     }
-    //itemCount추가하기!!
     const getBoardList = async (choice, search, page, itemCount) => {
         try {
             const resp = await axios.get("http://localhost:8818/board",

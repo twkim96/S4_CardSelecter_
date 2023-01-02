@@ -56,9 +56,8 @@ public class CardService {
      * 커스텀 카드 조회
      */
     public CardCustomListResponse getCustomCard(CardCustomListRequest req){
-        int itemCount = 10;
         CardCustomListParam param = new CardCustomListParam(req.getPage(), req.getId());
-        param.setPageParam(req.getPage(), itemCount);
+        param.setPageParam(req.getPage(), req.getItemCount());
         List<CustomCard> customCard = repository.getCustomCardList(param);
         int pageCnt = repository.getCustomCardCount(param);
         return new CardCustomListResponse(customCard, pageCnt);
@@ -67,14 +66,12 @@ public class CardService {
     /**
      * 커스텀 카드 제작 나중에 예외처리
      */
-    public CardCustomResultResponse createCustomCard(MultipartFile file, CardCustomCreateRequest req){
+    public CardCustomListResponse createCustomCard(MultipartFile file, CardCustomCreateRequest req){
         try {
             String fileName = uploadFile(file);
-            System.out.println(fileName + "11");
-            CustomCard customCard = req.toEntity(fileName);
-            Integer customCardResult = repository.createCustomCard(customCard);
-            System.out.println(customCardResult + "22");
-            return new CardCustomResultResponse(customCardResult);
+            CustomCard customCard1 = req.toEntity(fileName);
+            repository.createCustomCard(customCard1);
+            return getCustomCard(new CardCustomListRequest(1, req.getId(), 5));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,8 +83,8 @@ public class CardService {
     public CardCustomResultResponse deleteCustomCard(CardCustomDeleteRequest req){
         try {
             CustomCard customCard = req.toEntity();
-            Integer deleteCardResult = repository.deleteCustomCard(customCard);
-            return new CardCustomResultResponse(deleteCardResult);
+            repository.deleteCustomCard(customCard);
+            return new CardCustomResultResponse("success");
         } catch (RuntimeException e){
             throw new RuntimeException(e);
         }
@@ -110,7 +107,6 @@ public class CardService {
      */
     private String uploadFile(MultipartFile file) throws IOException {
         String filename = file.getOriginalFilename();
-        System.out.println(filename + "333");
         if(filename != null) {
             String fileExtension = filename.substring(filename.lastIndexOf("."));
             String uploadFolder = "/Users/twkim/Documents/server/";

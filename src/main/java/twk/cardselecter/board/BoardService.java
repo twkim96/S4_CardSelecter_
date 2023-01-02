@@ -67,30 +67,30 @@ public class BoardService {
     public BoardCreateResponse createBoard(BoardCreateRequest req){
         Board board = req.toEntity();
         Integer result = boardRepository.createBoard(board);
-        createCustomCardToBoard(req.getFilePath(), board.getSeq());
+        createCustomCardToBoard(req.getNo(), req.getFilePath() ,board.getSeq());
         return new BoardCreateResponse(board.getSeq());
     }
 
-    private void createCustomCardToBoard(String filePath, Integer seq) {
-        if(filePath == null)
+    private void createCustomCardToBoard(String no, String filePath, Integer seq) {
+        if(no == null)
             return;
         try {
             CustomCardToBoard customCard = CustomCardToBoard.builder()
-                    .filePath(filePath).seq(seq).build();
+                    .no(no).seq(seq).filePath(filePath).build();
             Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
         } catch (RuntimeException e){
             e.printStackTrace();
         }
     }
 
-    private void updateCustomCardToBoard(String filePath, Integer seq) {
-        if(filePath == null) {
+    private void updateCustomCardToBoard(String no, Integer seq) {
+        if(no == null) {
             Integer deleteResult = boardRepository.deleteCustomCardToBoard(seq);
             return;
         }
         try {
             CustomCardToBoard customCard = CustomCardToBoard.builder()
-                    .filePath(filePath).seq(seq).build();
+                    .no(no).seq(seq).build();
             Integer customCardToBoardResult = boardRepository.createCustomCardToBoard(customCard);
         } catch (RuntimeException e){
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class BoardService {
             Integer updateStepResult = boardRepository.updateBoardStep(boardStep);
         }
         Integer answerResult = boardRepository.createBoardAnswer(boardAnswer);
-        updateCustomCardToBoard(req.getFilePath(), boardAnswer.getSeq());
+        updateCustomCardToBoard(req.getNo(), boardAnswer.getSeq());
         return new BoardCreateResponse(boardAnswer.getSeq());
     }
 
@@ -140,7 +140,7 @@ public class BoardService {
         Board board = Board.builder().seq(seq).id(req.getId())
                 .content(req.getContent()).title(req.getTitle()).build();
         Integer updateResult = boardRepository.updateBoard(board);
-        createCustomCardToBoard(req.getFilePath(), seq);
+        createCustomCardToBoard(req.getNo(),req.getFilePath(), seq);
         return new BoardUpdateResponse(updateResult);
     }
 

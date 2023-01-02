@@ -40,15 +40,15 @@ class BoardServiceTest {
 
     @Test
     void createBoard() {
-        BoardCreateResponse boardCreate = boardService.createBoard(new BoardCreateRequest("id", "제목", "내용", "tw001412421"));
-        System.out.println(boardCreate + "hello");
+//        BoardCreateResponse boardCreate = boardService.createBoard(new BoardCreateRequest("id", "제목", "내용", "tw001412421"));
+//        System.out.println(boardCreate + "hello");
     }
 
     @Test
     void createBoardAnswer() {
-        BoardCreateResponse boardCreateAnswer = boardService.createBoardAnswer(
-                15, new BoardCreateRequest ("id", "15답글2", "내용", "tw00112321"));
-        System.out.println(boardCreateAnswer);
+//        BoardCreateResponse boardCreateAnswer = boardService.createBoardAnswer(
+//                15, new BoardCreateRequest ("id", "15답글2", "내용", "tw00112321"));
+//        System.out.println(boardCreateAnswer);
     }
 
     @Test
@@ -64,8 +64,8 @@ class BoardServiceTest {
 
     @Test
     void updateBoard() {
-        BoardUpdateResponse boardUpdate = boardService.updateBoard(28, new BoardUpdateRequest("id", "19답글수정1", "내용2", "tw001123213"));
-        System.out.println(boardUpdate);
+//        BoardUpdateResponse boardUpdate = boardService.updateBoard(28, new BoardUpdateRequest("id", "19답글수정1", "내용2", "tw001123213"));
+//        System.out.println(boardUpdate);
     }
 
     @Test

@@ -67,9 +67,8 @@ public class CardController {
      * 커스텀 카드 생성(이미지 받아와서 생성)
      */
     @PostMapping("/customCard")
-    public ResponseEntity<CardCustomResultResponse> createCustomCard(@RequestPart("img") MultipartFile file, @RequestPart("req") CardCustomCreateRequest req){
-        System.out.println(file +"44 44 44"+ req);
-        CardCustomResultResponse customCard = service.createCustomCard(file, req);
+    public ResponseEntity<CardCustomListResponse> createCustomCard(@RequestPart("img") MultipartFile file, @RequestPart("req") CardCustomCreateRequest req){
+        CardCustomListResponse customCard = service.createCustomCard(file, req);
         log.info("createCustomCard {}", customCard);
         return ResponseEntity.ok(customCard);
     }

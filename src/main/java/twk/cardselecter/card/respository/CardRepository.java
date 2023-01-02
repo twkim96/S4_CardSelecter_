@@ -22,6 +22,6 @@ public interface CardRepository {
     Card getCard(String no);
     CardScore getCardAge(String no);
     List<CustomCard> getCustomCardList(CardCustomListParam param);
-    Integer createCustomCard(CustomCard customCard);
-    Integer deleteCustomCard(CustomCard customCard);
+    void createCustomCard(CustomCard customCard);
+    void deleteCustomCard(CustomCard customCard);
 }

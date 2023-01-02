@@ -140,9 +140,9 @@
 
 	<!-- 커스텀카드 게시글 연관 테이블 생성 -->
 	<insert id="createCustomCardToBoard" parameterType="twk.cardselecter.board.entity.CustomCardToBoard">
-		INSERT INTO custom_card_to_board(filepath, seq)
-		VALUES (#{filePath}, #{seq})
-		on duplicate key update filepath=#{filePath}, seq=#{seq}
+		INSERT INTO custom_card_to_board(no, seq, filepath)
+		VALUES (#{no}, #{seq}, #{filepath})
+		on duplicate key update no=#{no}, seq=#{seq}, filepath=#{filepath}
 	</insert>
 
 	<!-- 커스텀 카드 삭제 -->

@@ -4,27 +4,34 @@ import React, {useEffect, useState} from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
+import CustomCardList from "../card/CustomCardList";
 
 
 function BoardWrite() {
     const user = useSelector((state) => state.user.value)
+    const selectCard = useSelector((state) => state.selectCard.value)
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [isShow, setIsShow] = useState(false);
 
     const changeTitle = (event) => {
         setTitle(event.target.value);
     }
     const changeContent = (event) => {
         setContent(event);
-        console.log(content)
     }
     const createBoard = async () => {
+        console.log(selectCard);
+        console.log(user.jwt);
         const req = {
             id: user.id,
             title: title,
-            content: content
+            content: content,
+            no: selectCard.customCard,
+            filePath: selectCard.customPath
         }
+        console.log(req)
         try {
             const resp = await axios.post("http://localhost:8818/board", req, {headers: user.jwt})
             alert("개시글을 성공적으로 등록했습니다.");
@@ -50,7 +57,14 @@ function BoardWrite() {
             </div>
             <ul className={"table"}>
                 <input type="text" className="form-control" value={title} onChange={changeTitle} size="50px" />
+                <button onClick={()=>{setIsShow(!isShow)}}>내 커스텀 카드 보기</button>
             </ul>
+            {
+                isShow ?
+                    <CustomCardList itemCount={5} select={true}/>
+                    :
+                    null
+            }
             <ul className={"table"}>
             </ul>
             <ul>

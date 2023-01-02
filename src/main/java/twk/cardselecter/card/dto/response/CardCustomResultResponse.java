@@ -8,5 +8,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class CardCustomResultResponse {
-    private Integer result;
+    private String result;
 }

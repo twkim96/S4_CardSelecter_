@@ -12,6 +12,7 @@ function BoardDetail() {
     const {seq} = useParams();
     const navigate = useNavigate();
     const [board, setBoard] = useState({});
+    const [filePath, setFilePath] = useState("");
 
     const getBoardDetail = async () => {
         try {
@@ -19,6 +20,7 @@ function BoardDetail() {
                 params: {id: user.id ? user.id : ""}
             });
             setBoard(resp.data.board);
+            setFilePath(resp.data.filePath);
         } catch (err) {
             alert("게시글 정보를 읽어오는데 문제가 생겼습니다. msg:" + err)
         }
@@ -41,7 +43,6 @@ function BoardDetail() {
             const req = {
                 id: user.id
             }
-            console.log(user.id);
             const resp = await axios.patch(
                 `http://localhost:8818/board/${seq}/like`, req);
             if (resp.data.result === 1) {
@@ -67,7 +68,7 @@ function BoardDetail() {
         id: board.id,
         title: board.title
     }
-    let codes = "<b>Will This Work?</b>";
+    const path = "http://localhost:8818/upload/" + filePath + ".png";
     return (
         <div id={"board-detail-wrap"}>
             <img src="/images/banner.jpg" alt=""/>
@@ -81,6 +82,14 @@ function BoardDetail() {
                     <li>조회수 <span>{board.readCount}</span></li>
                     <li>추천수 <span>{board.blike}</span></li>
                 </ul>
+                {
+                    filePath !== "" ?
+                        <ul>
+                            <img src={path} alt=""/>
+                        </ul>
+                        :
+                        null
+                }
                 <ul className={"table-contents text-middle"}>
                     <div className={"html-parse"} dangerouslySetInnerHTML={ {__html: board.content} }>
                     </div>

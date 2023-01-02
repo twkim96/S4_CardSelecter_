@@ -99,7 +99,7 @@
 	</select>
 
 <!-- 커스텀 카드 생성 -->
-	<insert id="createCustomCard" parameterType="twk.cardselecter.card.entity.CustomCard">
+	<insert id="createCustomCard" parameterType="twk.cardselecter.card.entity.CustomCard" keyProperty="filePath">
 		INSERT into custom_card (id, no, name, filepath)
 		VALUES (#{id}, #{no}, #{name}, #{filePath})
 	</insert>

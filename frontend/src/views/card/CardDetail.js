@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import CardMain from "../home/CardMain";
 import {useSelector} from "react-redux";
+import CustomCardList from "./CustomCardList";
 
 function CardDetail() {
     const [card, setCard] = useState({});
@@ -13,11 +14,13 @@ function CardDetail() {
     const [imgFile, setImgFile] = useState("");	//파일
     const user = useSelector((state) => state.user.value)
     const [isUpload, setIsUpload] = useState(false);
+    const [result, setResult] = useState("");
+    const [customCard, setCustomCard] = useState([]);
     const onChange = (e) => {
         setImgFile(e.target.files[0])
         console.log(imgFile)
     }
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const req = {
             id: user.id,
@@ -30,11 +33,14 @@ function CardDetail() {
         //위 코드로 해결.
         console.log(e + formData);
         try {
-            const resp = axios.post("http://localhost:8818/card/customCard", formData,{
+            const resp = await axios.post("http://localhost:8818/card/customCard", formData,{
                 headers : {
                     "Content-Type": `multipart/form-data`,
                 }});
-            console.log(resp.data);
+            if(resp.data.customCardList[0].filePath !== null){
+                setResult(`http://localhost:8818/upload/${resp.data.customCardList[0].filePath}.png`);
+                setCustomCard(resp.data.customCardList);
+            }
         } catch (err) {
             console.log(err)
         }
@@ -113,13 +119,22 @@ function CardDetail() {
             {(isUpload) ?
                 <div className={"upload-img"}>
                     <form onSubmit={onSubmit}>
-                        <label form={"file_up"}>업로드</label>
-                        <input id="file_up" className={"button-zero"} type={'file'} accept={'image/jpg, image/png'} onChange={onChange}/>
-                        <input className={"button-zero"} type="submit" value="Upload"/>
+                        <input id="file_up" type={'file'} accept={'image/jpg, image/png'} onChange={onChange}/>
+                        <input type="submit" value="Upload"/>
                     </form>
                 </div>
                 :
                 <div className={"empty-area"}/>
+            }
+            {
+                (result !== "") ?
+                    <div>
+                        <div className={"text-big text-middle"}>멋진 카드가 만들어졌어요!!</div>
+                        <CustomCardList itemCount={5}/>
+                        <div className={"button-zero"} onClick={()=>{setResult("")}}>없애기</div>
+                    </div>
+                    :
+                    null
             }
         </div>
     )

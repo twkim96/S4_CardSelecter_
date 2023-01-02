@@ -128,9 +128,11 @@
     position: absolute;
     right: 30px;
 }
+#board-detail-wrap .table .table-contents {
+    min-height: 300px;
+}
 #board-detail-wrap .table .table-contents ul {
     margin-top: 20px;
-    min-height: 300px;
     border-bottom: #cccccc 1px solid;
 }
 
@@ -159,7 +161,7 @@
 #board-detail-wrap .table .board-like{
     position: absolute;
     left: 500px;
-    bottom: -1px;
+    bottom: 10px;
     width: 70px;
     height: 70px;
     border: #bbbbbb solid 2px;

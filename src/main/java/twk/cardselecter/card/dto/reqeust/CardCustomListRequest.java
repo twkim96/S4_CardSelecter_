@@ -8,4 +8,5 @@ import lombok.Getter;
 public class CardCustomListRequest {
     private Integer page;
     private String id;
+    private Integer itemCount;
 }
