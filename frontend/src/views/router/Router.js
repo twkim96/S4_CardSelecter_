@@ -9,6 +9,7 @@ import BoardWrite from "../board/BoardWrite";
 import BoardDetail from "../board/BoardDetail";
 import BoardUpdate from "../board/BoardUpdate";
 import BoardAnswer from "../board/BoardAnswer";
+import MyPage from "../member/MyPage";
 
 
 function Router(){
@@ -24,6 +25,7 @@ function Router(){
             <Route path="/board/detail/:seq" element={<BoardDetail />}></Route>
             <Route path="/board/update" element={<BoardUpdate />}></Route>
             <Route path="/board/answer/:parentSeq" element={<BoardAnswer />}></Route>
+            <Route path={"/mypage/:id"} element={<MyPage/>}/>
         </Routes>
     )
 }

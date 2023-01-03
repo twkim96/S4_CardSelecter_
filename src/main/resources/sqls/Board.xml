@@ -56,6 +56,18 @@
 		ORDER BY ref DESC, step ASC
 	</select>
 
+	<!-- 특정 게시글 조회 -->
+	<select id="getBoardById" parameterType="twk.cardselecter.board.dto.param.BoardListIdParam" resultType="twk.cardselecter.board.entity.Board">
+		SELECT seq, id, ref, step, depth, title, content, created_at createdAt, del, read_count readCount, b_like bLike
+		FROM
+		(SELECT row_number() OVER(ORDER BY ref DESC, step) AS rnum,
+		seq, id, ref, step, depth, title, content, created_at, del, read_count, b_like
+		FROM board
+		where id=#{id}
+		ORDER BY ref DESC, step) a
+		WHERE rnum BETWEEN ${pageStart} AND ${pageEnd}
+	</select>
+
 	<!-- 게시글 조회수 레코드 생성 -->
 	<insert id="createBoardHistory" parameterType="twk.cardselecter.board.entity.BoardHistory">
 		INSERT INTO read_history (seq, id) VALUES (#{seq}, #{id});
@@ -163,6 +175,7 @@
 		from card.custom_card
 		where filepath = #{filePath}
 	</select>
+
 </mapper>
 
 

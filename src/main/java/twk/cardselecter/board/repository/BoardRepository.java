@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import twk.cardselecter.board.dto.param.BoardAnswer;
+import twk.cardselecter.board.dto.param.BoardListIdParam;
 import twk.cardselecter.board.dto.param.BoardListParam;
 import twk.cardselecter.board.dto.param.BoardStep;
 import twk.cardselecter.board.entity.Board;
@@ -38,5 +39,5 @@ public interface BoardRepository {
     Integer createCustomCardToBoard(CustomCardToBoard card);
     Integer deleteCustomCardToBoard(Integer seq);
     CustomCard findCustomCardNo(String filePath);
-
+    List<Board> getBoardById(BoardListIdParam param);
 }

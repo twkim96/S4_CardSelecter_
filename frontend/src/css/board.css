@@ -129,6 +129,8 @@
     right: 30px;
 }
 #board-detail-wrap .table .table-contents {
+    margin-top: 10px;
+    margin-left: 10px;
     min-height: 300px;
 }
 #board-detail-wrap .table .table-contents ul {
@@ -224,7 +226,7 @@
 #comment-wrap{
     position: relative;
     width: 1130px;
-    height: 80px;
+    height: 100px;
 }
 
 #comment-wrap .comment-table{
@@ -243,6 +245,7 @@
     margin-top: 5px;
     margin-left: 5px;
 }
+
 #comment-wrap .span-table{
     height: 74px;
     display: flex;

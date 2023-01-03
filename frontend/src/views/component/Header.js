@@ -21,7 +21,10 @@ function Header() {
                     <div className="login-menu">
                         {user.id ?
                             <div className={"login-box"}>
-                                <div>
+                                <div className={"flex-box"}>
+                                    <Link to={`/mypage/${user.id}`}>
+                                        <h2 className={"text-big"}>마이페이지</h2>
+                                    </Link>
                                     <Link className="nav-link" to="/logout">
                                         <img
                                             src="/images/baseline_logout_black_24dp.png"

@@ -13,7 +13,7 @@ function BoardDetail() {
     const navigate = useNavigate();
     const [board, setBoard] = useState({});
     const [customCard, setCustomCard] = useState({});
-
+    const [path, setPath] = useState("");
     const getBoardDetail = async () => {
         try {
             const resp = await axios(`http://localhost:8818/board/${seq}`, {
@@ -21,8 +21,8 @@ function BoardDetail() {
             });
             setBoard(resp.data.board);
             setCustomCard(resp.data.customCard);
+            setPath("http://localhost:8818/upload/" + resp.data.customCard.filePath + ".png");
         } catch (err) {
-            alert("게시글 정보를 읽어오는데 문제가 생겼습니다. msg:" + err)
         }
     }
 
@@ -34,7 +34,6 @@ function BoardDetail() {
                 navigate(-1);
             }
         } catch (err) {
-            alert("게시글을 삭제하는데 문제가 생겼습니다. msg:" + err)
         }
     }
 
@@ -67,7 +66,11 @@ function BoardDetail() {
         id: board.id,
         title: board.title
     }
-    const path = "http://localhost:8818/upload/" + customCard.filePath + ".png";
+    // console.log(customCard)
+    // if(customCard.length!==0) {
+    //     setPath("http://localhost:8818/upload/" + customCard.filePath + ".png");
+    // }
+    console.log(customCard + "hi")
     return (
         <div id={"board-detail-wrap"}>
             <img src="/images/banner.jpg" alt=""/>
@@ -82,7 +85,7 @@ function BoardDetail() {
                     <li>추천수 <span>{board.blike}</span></li>
                 </ul>
                 {
-                    customCard.filePath !== "" ?
+                    customCard !== null ?
                         <ul className={"show-menu"}>
                             <img src={path} alt=""/>
                             <Link to={`/card/detail/${customCard.no}`}>

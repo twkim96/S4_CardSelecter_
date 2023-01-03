@@ -28,7 +28,6 @@ public class CommentController {
         log.info("getCommentList {}", commentList);
         return ResponseEntity.ok(commentList);
     }
-
     /**
      * 댓글 작성
      */

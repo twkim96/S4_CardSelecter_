@@ -33,11 +33,14 @@ public class BoardController {
     public ResponseEntity<BoardListResponse> getBoardList(@ModelAttribute BoardListRequest req) {
         BoardListResponse boardList = service.getBoardList(req);
         log.info("getBoardList {}", boardList);
-        System.out.println(new File("").getAbsolutePath() + "\\");
-        System.out.println(System.getProperty("user.dir"));
         return ResponseEntity.ok(boardList);
     }
-
+    @GetMapping("/my")
+    public ResponseEntity<BoardListResponse> getBoardListById(@RequestParam String id, @RequestParam Integer page) {
+        BoardListResponse boardList = service.getBoardListById(id, page);
+        log.info("getBoardList {}", boardList);
+        return ResponseEntity.ok(boardList);
+    }
     /**
      * GET | board/{seq}?id={id}
      * 게시글 상세

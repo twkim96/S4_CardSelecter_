@@ -51,7 +51,7 @@ function CommentList(props){
                     return (
                         <div key={idx}>
                             <Comment obj={comment} key={idx} />
-                            <CommentAnswer obj={comment} key={idx}/>
+                            <CommentAnswer obj={comment} key={idx+1000}/>
                         </div>
                     );
                 })

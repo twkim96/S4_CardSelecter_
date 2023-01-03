@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import twk.cardselecter.board.dto.param.BoardAnswer;
+import twk.cardselecter.board.dto.param.BoardListIdParam;
 import twk.cardselecter.board.dto.param.BoardListParam;
 import twk.cardselecter.board.dto.param.BoardStep;
 import twk.cardselecter.board.dto.request.BoardCreateRequest;
@@ -43,7 +44,17 @@ public class BoardService {
         int pageCnt = boardRepository.getBoardCount(req.getChoice(), req.getSearch());
         return new BoardListResponse(boardList, pageCnt);
     }
-
+    /**
+     * 게시글 조회 by 아이디
+     */
+    public BoardListResponse getBoardListById(String id, Integer page){
+        int itemCount = 10;
+        BoardListIdParam param = new BoardListIdParam(page, id);
+        param.setPageParam(page, itemCount);
+        List<Board> boardList = boardRepository.getBoardById(param);
+        int pageCnt = boardRepository.getBoardCount("", "");
+        return new BoardListResponse(boardList, pageCnt);
+    }
     /**
      *  특정글 조회 + 조회수 수정
      */
@@ -61,7 +72,6 @@ public class BoardService {
         /*updateResult 사용해서 예외처리*/
         /*아래 두개 합치기*/
         String customCardToBoard = boardRepository.getCustomCardToBoard(seq);
-        System.out.println(customCardToBoard + "lol");
         CustomCard customCard = boardRepository.findCustomCardNo(customCardToBoard);
         return new BoardPostResponse(boardRepository.getBoard(seq), customCard);
     }

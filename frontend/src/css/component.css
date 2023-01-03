@@ -27,7 +27,13 @@
     display: flex;
     margin-top: 10px;
 }
-
+.login-box .flex-box{
+    display: flex;
+    align-items: center;
+}
+.login-box .flex-box h2{
+    margin-right: 20px;
+}
 .login-box img{
     margin-left: 10px;
     margin-bottom: 5px;
@@ -201,4 +207,8 @@ footer .footer-box{
 #table-wrap .button-wrapper {
     display: flex;
     justify-content: center;
+}
+
+.my-home{
+    margin: 30px 0 30px 20px;
 }

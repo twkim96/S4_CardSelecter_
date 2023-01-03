@@ -21,4 +21,5 @@ public interface CommentRepository {
     Integer updateCommentCheck(Integer seq);
     Integer updateCommentStep(CommentStep commentStep);
     Integer deleteComment(Integer seq);
+    List<Comment> getCommentById(String id);
 }

@@ -75,6 +75,14 @@
 		WHERE seq=#{seq}
 	</select>
 
+	<!-- 작성자로 댓글 조회 -->
+	<select id="getCommentById" parameterType="String"
+			resultType="twk.cardselecter.comment.entity.Comment">
+		SELECT id, ref, step, depth, content, created_at createAt, del, board_seq boardSeq, emoticon
+		FROM comment
+		WHERE id=#{id}
+	</select>
+
 	<!-- 댓글 수정 -->
 	<!-- 수정 성공 시 1(수정한 레코드 개수) 을 반환, 실패 시 0 을 반환 -->
 	<update id="updateComment" parameterType="twk.cardselecter.comment.entity.Comment">
