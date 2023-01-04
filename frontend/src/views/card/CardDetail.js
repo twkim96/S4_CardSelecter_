@@ -65,7 +65,7 @@ function CardDetail() {
 
     useEffect(() => {
         getCardDetail();
-    }, []);
+    }, [no]);
 
     console.log(boardList)
     return (

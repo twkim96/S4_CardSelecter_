@@ -17,7 +17,6 @@ function Home(){
             <GoChart/>
             <CardMain name='학생을 키우는 부모님에게 추천하는 카드' orderBy={1} choice={"교육비"} itemCount={4} color={"#f5f5f5"}/>
             <CardMain name='50대에게 인기가 많은 카드' orderBy={0} choice={"score50"} itemCount={4} color={"#ffffff"}/>
-            <p>{localStorage.getItem("id")}</p>
         </div>
     )
 }

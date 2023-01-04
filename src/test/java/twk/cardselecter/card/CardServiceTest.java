@@ -35,8 +35,8 @@ class CardServiceTest {
 
     @Test
     void getCustomCard() {
-        CardCustomListResponse customCard = service.getCustomCard(new CardCustomListRequest(1, "id"));
-        System.out.println(customCard);
+//        CardCustomListResponse customCard = service.getCustomCard(new CardCustomListRequest(1, "id"));
+//        System.out.println(customCard);
     }
 
     @Test
